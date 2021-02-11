@@ -1,126 +1,43 @@
-import * as React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Image,
-  Text,
-  TouchableOpacity,
-  StatusBar,
-} from 'react-native';
-import {Provider as PaperProvider, TextInput, Button} from 'react-native-paper';
-//for height of wrapper text info
-const width_proportion = '80%';
-const height_proportion = '40%';
-const img_with = '30%';
+import React, {useState, useEffect, Alert} from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+
+import loginScreen from './assets/screen/loginScreen';
+import signupScreen from './assets/screen/signupScreen';
+import homeScreen from './assets/screen/homeScreen';
+
+const Stack = createStackNavigator();
+
 export default function App() {
-  const [text, setText] = React.useState('');
+  useEffect(() => {
+    //mylocalhost
+    // global.global_url = "http://192.168.2.104/microfilming_mobile/main/";
+    // global.notes_web_directory = "http://192.168.2.104/notes";
+    // online url
+    // global.global_url =
+    //   'https://dev.wdysolutions.com/microfilming-mobile/main/';
+    // global.notes_web_directory = 'https://dev.wdysolutions.com/main';
+  });
   return (
-    <>
-      {/* <StatusBar barStyle="dark-content" /> */}
-      <PaperProvider>
-        <View style={styles.wrapper}>
-          <View style={styles.textInputWrapper}>
-            <Image
-              source={require('./assets/images/logo_tup.png')}
-              style={{width: 100, height: 100, alignSelf: 'center'}}
-            />
-            <TextInput
-              label="ID Number"
-              value={text}
-              onChangeText={(text) => setText(text)}
-              underlineColor="white"
-              style={{marginBottom: 20}}
-              theme={{
-                colors: {
-                  placeholder: 'black',
-                  text: 'black',
-                  primary: 'white',
-                  // underlineColor: 'white',
-                  background: 'transparent',
-                },
-              }}
-            />
-            <TextInput
-              label="Password"
-              value={text}
-              onChangeText={(text) => setText(text)}
-              underlineColor="white"
-              style={{marginBottom: 20}}
-              theme={{
-                colors: {
-                  placeholder: 'black',
-                  text: 'black',
-                  primary: 'white',
-                  // underlineColor: 'white',
-                  background: 'transparent',
-                },
-              }}
-            />
-            <Button
-              mode="Outlined"
-              labelStyle={{
-                color: '#6a96c2',
-                alignContent: 'center',
-                fontWeight: 'bold',
-                fontSize: 20,
-              }}
-              // loading
-              style={{
-                borderWidth: 1,
-                borderColor: 'grey',
-                backgroundColor: 'white',
-                width: 200,
-                alignSelf: 'center',
-                borderRadius: 10,
-              }}
-              onPress={() => console.log('Pressed')}>
-              Login
-            </Button>
-            {/* <Text>test</Text> */}
-          </View>
-          <View style={styles.wrapperFooter}>
-            <Text style={{fontWeight: 'bold'}}>
-              Do not have an account yet?{' '}
-            </Text>
-            <TouchableOpacity>
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  borderBottomWidth: 1,
-                  borderColor: 'black',
-                }}>
-                Sign up
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </PaperProvider>
-    </>
+    <NavigationContainer>
+      <Stack.Navigator>
+        {/* main */}
+        {/* <Stack.Screen
+          name="Login"
+          component={loginScreen}
+          options={{headerShown: false}}
+        /> */}
+        {/* <Stack.Screen
+          name="Sign Up"
+          component={signupScreen}
+          options={{headerShown: false}}
+        /> */}
+        <Stack.Screen
+          name="Home Screen"
+          component={homeScreen}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    backgroundColor: '#8b8b8b',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-  },
-  textColor: {
-    color: 'black',
-  },
-  textInputWrapper: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    width: width_proportion,
-  },
-  wrapperFooter: {
-    alignContent: 'flex-end',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginBottom: 10,
-  },
-});
