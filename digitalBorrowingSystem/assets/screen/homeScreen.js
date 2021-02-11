@@ -59,7 +59,7 @@ export default function loginScreen() {
                   marginTop: 40,
                   alignItems: 'center',
                   padding: 20,
-                  borderRadius: 5,
+                  borderRadius: 15,
                   backgroundColor: '#8b8b8b',
                 }}>
                 <Image
@@ -88,18 +88,18 @@ export default function loginScreen() {
                   marginTop: 40,
                   alignItems: 'center',
                   padding: 20,
-                  borderRadius: 5,
+                  borderRadius: 15,
                   backgroundColor: '#8b8b8b',
                 }}>
                 <Image
-                  source={require('../images/multimeter.png')}
+                  source={require('../images/resistor.png')}
                   style={{width: 100, height: 100, alignSelf: 'center'}}
                 />
                 <Text
                   style={{
                     fontWeight: 'bold',
                   }}>
-                  INSTRUMENT
+                  COMPONENTS
                 </Text>
                 <View
                   style={{
@@ -156,6 +156,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#820100',
   },
   btn_view_wrapper: {
-    backgroundColor: 'steelblue',
+    // backgroundColor: 'steelblue',
   },
 });
