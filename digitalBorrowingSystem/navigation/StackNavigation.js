@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../assets/screen/homeScreen';
 import Login from '../assets/screen/loginScreen';
 import Signup from '../assets/screen/signupScreen';
+import AccountDetails from '../assets/screen/accountDetails';
 const Stack = createStackNavigator();
 const MainStackNavigator = () => {
   return (
@@ -25,5 +26,17 @@ const MainStackNavigator = () => {
     </Stack.Navigator>
   );
 };
+
+const AccountDetailsStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Account Details"
+        component={AccountDetails}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  );
+};
 // for you are using nested stack with drawer stack navigation should be export not export default
-export {MainStackNavigator};
+export {MainStackNavigator, AccountDetailsStack};

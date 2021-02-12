@@ -52,9 +52,25 @@ function Sidebar({...props}) {
           </Body>
         </Card>
         <DrawerContentScrollView {...props}>
-          <DrawerItemList {...props} />
-          <DrawerItem label="Account Details" />
-          <DrawerItem label="Sign Out" />
+          <DrawerItemList
+            {...props}
+            activeTintColor="#2196f3"
+            activeBackgroundColor="rgba(0, 0, 0, .04)"
+            inactiveTintColor="rgba(0, 0, 0, .87)"
+            inactiveBackgroundColor="transparent"
+            style={{backgroundColor: '#000000'}}
+            labelStyle={{color: '#a7a7a7', fontWeight: 'bold'}}
+          />
+          <DrawerItem
+            label="Sign Out"
+            onPress={() => {
+              props.navigation.navigate('Account Details');
+            }}
+            icon={() => (
+              <Icon size={15} name="power" style={{color: '#a7a7a7'}}></Icon>
+            )}
+          />
+          {/* <DrawerItem label="Sign Out" /> */}
         </DrawerContentScrollView>
       </Content>
     </Container>
