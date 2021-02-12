@@ -42,7 +42,7 @@ export default function homeScreen({navigation}) {
           </Appbar>
           <View style={styles.textInputWrapper}>
             <Image
-              source={require('../images/tup_app_banner.jpg')}
+              source={require('../assets/images/tup_app_banner.jpg')}
               style={{
                 width: img_width,
                 height: img_width,
@@ -64,7 +64,7 @@ export default function homeScreen({navigation}) {
                   backgroundColor: '#8b8b8b',
                 }}>
                 <Image
-                  source={require('../images/multimeter.png')}
+                  source={require('../assets/images/multimeter.png')}
                   style={{width: 100, height: 100, alignSelf: 'center'}}
                 />
                 <Text
@@ -100,7 +100,7 @@ export default function homeScreen({navigation}) {
                   backgroundColor: '#8b8b8b',
                 }}>
                 <Image
-                  source={require('../images/resistor.png')}
+                  source={require('../assets/images/resistor.png')}
                   style={{width: 100, height: 100, alignSelf: 'center'}}
                 />
                 <Text
@@ -131,7 +131,7 @@ export default function homeScreen({navigation}) {
                   backgroundColor: '#8b8b8b',
                 }}>
                 <Image
-                  source={require('../images/technics.png')}
+                  source={require('../assets/images/technics.png')}
                   style={{width: 100, height: 100, alignSelf: 'center'}}
                 />
                 <Text
@@ -167,7 +167,7 @@ export default function homeScreen({navigation}) {
                   backgroundColor: '#8b8b8b',
                 }}>
                 <Image
-                  source={require('../images/guide.png')}
+                  source={require('../assets/images/guide.png')}
                   style={{width: 100, height: 100, alignSelf: 'center'}}
                 />
                 <Text
