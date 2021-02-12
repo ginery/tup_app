@@ -13,21 +13,48 @@ import {
   Right,
   Button,
   Text,
+  ListItem,
+  Card,
+  Body,
+  Left,
+  Thumbnail,
 } from 'native-base';
 function Sidebar({...props}) {
   return (
     <Container>
-      <Header style={{backgroundColor: '#ffffff', borderBottomWidth: 0}}>
+      <Header style={{backgroundColor: '#ffffff', borderBottomWidth: 2}}>
         <Right>
           <Button transparent onPress={() => props.navigation.closeDrawer()}>
-            <Icon style={{color: 'blue'}} name="times-circle" />
+            <Icon style={{color: 'gray'}} name="arrow-back-circle-outline" />
           </Button>
         </Right>
       </Header>
       <Content>
+        <Card
+          style={{
+            borderWidth: 2,
+            borderColor: 'black',
+            backgroundColor: '#a7a7a7',
+          }}>
+          <Left>
+            <Thumbnail
+              style={{marginTop: 20, width: 100, height: 100}}
+              source={require('./assets/images/profile.png')}
+            />
+          </Left>
+          <Body style={{marginBottom: 10}}>
+            <Text style={{color: 'white', fontWeight: 'bold'}}>
+              Louiella Igpuara
+            </Text>
+            <Text style={{color: 'white', fontWeight: 'bold'}}>
+              18-503-0104
+            </Text>
+          </Body>
+        </Card>
         <DrawerContentScrollView {...props}>
           <DrawerItemList {...props} />
-          <DrawerItem label="Rate Us" />
+          <DrawerItem label="Account Details" />
+          <DrawerItem label="Sign Out" />
         </DrawerContentScrollView>
       </Content>
     </Container>
