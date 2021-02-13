@@ -18,9 +18,9 @@ export default function loginScreen() {
   const [text, setText] = React.useState('');
   return (
     <>
-      {/* <StatusBar barStyle="dark-content" /> */}
       <PaperProvider>
         <View style={styles.wrapper}>
+          <StatusBar backgroundColor="#800000" />
           <View style={styles.textInputWrapper}>
             <Image
               source={require('../images/logo_tup.png')}

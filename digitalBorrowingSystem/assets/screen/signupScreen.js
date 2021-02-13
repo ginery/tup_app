@@ -18,6 +18,7 @@ export default function signupScreen() {
   return (
     <View style={styles.wrapper}>
       <View style={styles.textInputWrapper}>
+        <StatusBar backgroundColor="#800000" />
         <Image
           source={require('../images/logo_tup.png')}
           style={{width: 100, height: 100, alignSelf: 'center'}}

@@ -4,6 +4,7 @@ import Home from '../assets/screen/homeScreen';
 import Login from '../assets/screen/loginScreen';
 import Signup from '../assets/screen/signupScreen';
 import AccountDetails from '../assets/screen/accountDetails';
+import RequestForm from '../assets/screen/request_from';
 const Stack = createStackNavigator();
 const MainStackNavigator = () => {
   return (
@@ -12,8 +13,8 @@ const MainStackNavigator = () => {
         name="Login"
         component={Login}
         options={{headerShown: false}}
-      /> 
-      <Stack.Screen
+      /> */}
+      {/* <Stack.Screen
         name="Sign Up"
         component={Signup}
         options={{headerShown: false}}
@@ -21,6 +22,11 @@ const MainStackNavigator = () => {
       <Stack.Screen
         name="Home Screen"
         component={Home}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Request Form"
+        component={RequestForm}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

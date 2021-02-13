@@ -23,15 +23,11 @@ const height = '35%';
 const img_width = '100%';
 export default function homeScreen({navigation}) {
   const [text, setText] = React.useState('Test Name');
-  const logo = {
-    uri: 'https://reactnative.dev/img/tiny_logo.png',
-    width: 64,
-    height: 64,
-  };
   return (
     <>
       {/* <StatusBar barStyle="dark-content" /> */}
       <PaperProvider>
+        <StatusBar backgroundColor="#800000" />
         <View style={styles.wrapper}>
           <Appbar style={styles.bottom}>
             <Appbar.Action
@@ -43,7 +39,7 @@ export default function homeScreen({navigation}) {
             <Appbar.Action
               icon="clipboard"
               style={{marginLeft: 'auto'}}
-              onPress={() => console.log('Pressed delete')}
+              onPress={() => navigation.navigate('Request Form')}
             />
           </Appbar>
 
@@ -211,8 +207,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    top: 1,
-    backgroundColor: '#820100',
+    top: 0,
+    backgroundColor: '#800000',
   },
   btn_view_wrapper: {
     // backgroundColor: 'steelblue',
