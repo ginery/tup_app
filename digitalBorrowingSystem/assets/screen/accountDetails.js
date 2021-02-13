@@ -21,7 +21,7 @@ import {Card, Container, Content, Left, Thumbnail} from 'native-base';
 const width_proportion = '100%';
 const height = '35%';
 const img_width = '100%';
-export default function homeScreen({navigation}) {
+export default function accountDetails({navigation}) {
   const [text, setText] = React.useState('Test Name');
   return (
     <>

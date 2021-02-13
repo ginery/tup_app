@@ -20,12 +20,11 @@ const width_proportion = '90%';
 const btn_wrapper = '45%';
 const img_width = '100%';
 export default function homeScreen({navigation}) {
-  const [text, setText] = React.useState('');
   return (
     <>
       <PaperProvider>
-        <StatusBar backgroundColor="#800000" />
         <View style={styles.wrapper}>
+          <StatusBar backgroundColor="#800000" />
           <Appbar style={styles.bottom}>
             <Appbar.Action
               icon="menu"
@@ -61,7 +60,8 @@ export default function homeScreen({navigation}) {
                   padding: 20,
                   borderRadius: 15,
                   backgroundColor: '#8b8b8b',
-                }}>
+                }}
+                onPress={() => navigation.navigate('Instruments')}>
                 <Image
                   source={require('../images/multimeter.png')}
                   style={{width: 100, height: 100, alignSelf: 'center'}}
@@ -97,7 +97,8 @@ export default function homeScreen({navigation}) {
                   padding: 20,
                   borderRadius: 15,
                   backgroundColor: '#8b8b8b',
-                }}>
+                }}
+                onPress={() => navigation.navigate('Components')}>
                 <Image
                   source={require('../images/resistor.png')}
                   style={{width: 100, height: 100, alignSelf: 'center'}}
@@ -128,7 +129,8 @@ export default function homeScreen({navigation}) {
                   padding: 20,
                   borderRadius: 15,
                   backgroundColor: '#8b8b8b',
-                }}>
+                }}
+                onPress={() => navigation.navigate('Tools')}>
                 <Image
                   source={require('../images/technics.png')}
                   style={{width: 100, height: 100, alignSelf: 'center'}}

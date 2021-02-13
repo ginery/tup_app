@@ -5,6 +5,9 @@ import Login from '../assets/screen/loginScreen';
 import Signup from '../assets/screen/signupScreen';
 import AccountDetails from '../assets/screen/accountDetails';
 import RequestForm from '../assets/screen/request_from';
+import Instruments from '../assets/screen/instruments';
+import Components from '../assets/screen/components';
+import Tools from '../assets/screen/tools';
 const Stack = createStackNavigator();
 const MainStackNavigator = () => {
   return (
@@ -27,6 +30,21 @@ const MainStackNavigator = () => {
       <Stack.Screen
         name="Request Form"
         component={RequestForm}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Instruments"
+        component={Instruments}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Components"
+        component={Components}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Tools"
+        component={Tools}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
