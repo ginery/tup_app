@@ -11,16 +11,23 @@ import {
 } from 'react-native';
 import {
   Provider as PaperProvider,
-  TextInput,
   Button,
   Appbar,
+  TextInput,
 } from 'react-native-paper';
+import {Card, Container, Content, Left, Thumbnail} from 'native-base';
+
 //for height of wrapper text info
-const width_proportion = '90%';
-const btn_wrapper = '45%';
+const width_proportion = '100%';
+const height = '35%';
 const img_width = '100%';
 export default function homeScreen({navigation}) {
-  const [text, setText] = React.useState('');
+  const [text, setText] = React.useState('Test Name');
+  const logo = {
+    uri: 'https://reactnative.dev/img/tiny_logo.png',
+    width: 64,
+    height: 64,
+  };
   return (
     <>
       {/* <StatusBar barStyle="dark-content" /> */}
@@ -39,12 +46,129 @@ export default function homeScreen({navigation}) {
               onPress={() => console.log('Pressed delete')}
             />
           </Appbar>
+
           <View style={styles.textInputWrapper}>
-            <Text>test</Text>
+            <Thumbnail
+              style={{marginTop: 15, width: 90, height: 90}}
+              source={require('../images/profile.png')}
+            />
+
+            <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18}}>
+              Louiella Igpuara
+            </Text>
+            <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18}}>
+              18-503-0104
+            </Text>
           </View>
-          {/* <View style={styles.textInputWrapper2}>
-            
-          </View> */}
+          <ScrollView
+            contentContainerStyle={{
+              width: 400,
+              margin: 0,
+              padding: 0,
+            }}>
+            <View style={styles.textContentWrapper}>
+              <TextInput
+                label="FullName"
+                value={text}
+                onChangeText={(text) => setText(text)}
+                underlineColor="#a7a7a7"
+                style={{marginBottom: 20}}
+                theme={{
+                  colors: {
+                    placeholder: '#a7a7a7',
+                    text: '#a7a7a7',
+                    primary: '#a7a7a7',
+                    // underlineColor: 'white',
+                    background: 'transparent',
+                  },
+                }}
+              />
+              <TextInput
+                label="Course and Section"
+                value={text}
+                onChangeText={(text) => setText(text)}
+                underlineColor="#a7a7a7"
+                style={{marginBottom: 20}}
+                theme={{
+                  colors: {
+                    placeholder: '#a7a7a7',
+                    text: '#a7a7a7',
+                    primary: '#a7a7a7',
+                    // underlineColor: 'white',
+                    background: 'transparent',
+                  },
+                }}
+              />
+              <TextInput
+                label="Email"
+                value={text}
+                onChangeText={(text) => setText(text)}
+                underlineColor="#a7a7a7"
+                style={{marginBottom: 20}}
+                theme={{
+                  colors: {
+                    placeholder: '#a7a7a7',
+                    text: '#a7a7a7',
+                    primary: '#a7a7a7',
+                    // underlineColor: 'white',
+                    background: 'transparent',
+                  },
+                }}
+              />
+              <TextInput
+                label="ID Number"
+                value={text}
+                onChangeText={(text) => setText(text)}
+                underlineColor="#a7a7a7"
+                style={{marginBottom: 20}}
+                theme={{
+                  colors: {
+                    placeholder: '#a7a7a7',
+                    text: '#a7a7a7',
+                    primary: '#a7a7a7',
+                    // underlineColor: 'white',
+                    background: 'transparent',
+                  },
+                }}
+              />
+              <TextInput
+                label="Password"
+                value={text}
+                onChangeText={(text) => setText(text)}
+                underlineColor="#a7a7a7"
+                style={{marginBottom: 20}}
+                theme={{
+                  colors: {
+                    placeholder: '#a7a7a7',
+                    text: '#a7a7a7',
+                    primary: '#a7a7a7',
+                    // underlineColor: 'white',
+                    background: 'transparent',
+                  },
+                }}
+              />
+              <Button
+                mode="Outlined"
+                labelStyle={{
+                  color: 'white',
+                  alignContent: 'center',
+                  fontWeight: 'bold',
+                  fontSize: 20,
+                }}
+                // loading
+                style={{
+                  borderWidth: 1,
+                  borderColor: 'grey',
+                  backgroundColor: '#820100',
+                  width: '100%',
+                  alignSelf: 'center',
+                  // borderRadius: 10,
+                }}
+                onPress={() => console.log('Pressed')}>
+                UPDATE
+              </Button>
+            </View>
+          </ScrollView>
         </View>
       </PaperProvider>
     </>
@@ -57,28 +181,31 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-  },
-  textColor: {
-    color: 'black',
+    width: width_proportion,
   },
   textInputWrapper: {
-    height: 150,
+    height: height,
     width: width_proportion,
-    marginBottom: 'auto',
-    marginTop: 80,
-
-    // borderBottomWidth: 5,
+    // marginBottom: 'auto',
+    marginTop: 55,
+    // borderWidth: 5,
     // borderColor: 'black',
+    backgroundColor: '#a7a7a7',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  textInputWrapper2: {
-    height: 150,
-    width: width_proportion,
-    marginBottom: 'auto',
-    top: 0,
-    borderBottomWidth: 5,
-    borderColor: 'black',
-  },
+  textContentWrapper: {
+    height: height,
 
+    marginBottom: 'auto',
+    marginTop: 10,
+    // borderWidth: 1,
+    // borderColor: 'black',
+    padding: 10,
+    // backgroundColor: '#',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+  },
   bottom: {
     position: 'absolute',
     left: 0,

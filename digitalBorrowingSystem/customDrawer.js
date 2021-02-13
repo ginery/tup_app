@@ -22,7 +22,7 @@ import {
 function Sidebar({...props}) {
   return (
     <Container>
-      <Header style={{backgroundColor: '#ffffff', borderBottomWidth: 2}}>
+      <Header style={{backgroundColor: '#ffffff', borderBottomWidth: 0}}>
         <Right>
           <Button transparent onPress={() => props.navigation.closeDrawer()}>
             <Icon style={{color: 'gray'}} name="arrow-back-circle-outline" />
