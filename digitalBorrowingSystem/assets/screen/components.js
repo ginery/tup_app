@@ -28,7 +28,7 @@ import {
   List,
   Right,
 } from 'native-base';
-import Counter from 'react-native-counters';
+import CounterInput from 'react-native-counter-input';
 export default function Components({navigation}) {
   return (
     <PaperProvider>
@@ -71,7 +71,11 @@ export default function Components({navigation}) {
                       </Text>
                     </Body>
                     <Right>
-                      <Counter start={1} onChange={this.onChange.bind(this)} />
+                      <Button
+                        style={{backgroundColor: '#800000', borderRadius: 15}}
+                        labelStyle={{color: 'white', fontSize: 12}}>
+                        <Text>add</Text>
+                      </Button>
                     </Right>
                   </ListItem>
                   <ListItem thumbnail>

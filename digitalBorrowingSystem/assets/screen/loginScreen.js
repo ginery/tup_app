@@ -14,13 +14,13 @@ import {Provider as PaperProvider, TextInput, Button} from 'react-native-paper';
 const width_proportion = '80%';
 const height_proportion = '40%';
 const img_with = '30%';
-export default function loginScreen() {
+export default function loginScreen({navigation}) {
   const [text, setText] = React.useState('');
   return (
     <>
       <PaperProvider>
+        <StatusBar backgroundColor="#800000" />
         <View style={styles.wrapper}>
-          <StatusBar backgroundColor="#800000" />
           <View style={styles.textInputWrapper}>
             <Image
               source={require('../images/logo_tup.png')}
@@ -84,7 +84,7 @@ export default function loginScreen() {
             <Text style={{fontWeight: 'bold'}}>
               Do not have an account yet?{' '}
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Sign Up')}>
               <Text
                 style={{
                   fontWeight: 'bold',

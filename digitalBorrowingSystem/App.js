@@ -3,8 +3,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import DrawerNavigator from './navigation/DrawerNavigation';
 export default function App() {
   useEffect(() => {
-    //mylocalhost
-    // global.global_url = "http://192.168.2.104/microfilming_mobile/main/";
+    //  mylocalhost
+    global.global_url = 'http://192.168.0.105/tup-dbs/app/';
     // global.notes_web_directory = "http://192.168.2.104/notes";
     // online url
     // global.global_url =
