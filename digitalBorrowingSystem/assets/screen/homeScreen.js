@@ -19,12 +19,21 @@ import {
 const width_proportion = '90%';
 const btn_wrapper = '45%';
 const img_width = '100%';
-export default function homeScreen({navigation}) {
+export default function homeScreen({navigation, route}) {
+  //form sign in and log in
+  const {
+    user_name,
+    user_contact,
+    user_email,
+    user_course_sec,
+    user_id_number,
+  } = route.params;
+
   return (
     <>
       <PaperProvider>
+        <StatusBar backgroundColor="#800000" />
         <View style={styles.wrapper}>
-          <StatusBar backgroundColor="#800000" />
           <Appbar style={styles.bottom}>
             <Appbar.Action
               icon="menu"

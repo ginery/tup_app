@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -19,7 +19,33 @@ import {
   Left,
   Thumbnail,
 } from 'native-base';
+import {useFocusEffect} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {color} from 'react-native-reanimated';
 function Sidebar({...props}) {
+  useEffect(() => {
+    retrieveData();
+  });
+  const [fullname, setFullname] = useState('');
+  const [Id_number, setIDNumber] = useState('');
+  const retrieveData = async () => {
+    try {
+      const valueString = await AsyncStorage.getItem('user_details');
+      const value = JSON.parse(valueString);
+      if (value == null) {
+        console.log('empty');
+      } else {
+        console.log(value);
+        setFullname(value.user_name);
+        setIDNumber(value.user_id_number);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  function signOut() {
+    AsyncStorage.clear();
+  }
   return (
     <Container>
       <Header style={{backgroundColor: '#ffffff', borderBottomWidth: 0}}>
@@ -43,11 +69,9 @@ function Sidebar({...props}) {
             />
           </Left>
           <Body style={{marginBottom: 10}}>
+            <Text style={{color: 'white', fontWeight: 'bold'}}>{fullname}</Text>
             <Text style={{color: 'white', fontWeight: 'bold'}}>
-              Louiella Igpuara
-            </Text>
-            <Text style={{color: 'white', fontWeight: 'bold'}}>
-              18-503-0104
+              {Id_number}
             </Text>
           </Body>
         </Card>
@@ -64,7 +88,8 @@ function Sidebar({...props}) {
           <DrawerItem
             label="Sign Out"
             onPress={() => {
-              props.navigation.navigate('Account Details');
+              signOut();
+              props.navigation.navigate('Login');
             }}
             icon={() => (
               <Icon size={15} name="power" style={{color: '#a7a7a7'}}></Icon>

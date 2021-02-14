@@ -10,12 +10,40 @@ import {
   StatusBar,
 } from 'react-native';
 import {Provider as PaperProvider, TextInput, Button} from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useFocusEffect} from '@react-navigation/native';
 //for height of wrapper text info
 const width_proportion = '80%';
 const height_proportion = '40%';
 const img_with = '30%';
 export default function loginScreen({navigation}) {
   const [text, setText] = React.useState('');
+  useFocusEffect(
+    React.useCallback(() => {
+      retrieveData();
+      return () => retrieveData();
+    }),
+  );
+  const retrieveData = async () => {
+    try {
+      const valueString = await AsyncStorage.getItem('user_details');
+      const value = JSON.parse(valueString);
+      if (valueString == null || valueString == '') {
+        console.log('empty');
+      } else {
+        console.log('with value');
+        navigation.navigate('Home Screen', {
+          user_name: value.user_name,
+          user_contact: value.user_contact,
+          user_email: value.user_email,
+          user_course_sec: value.user_course_sec,
+          user_id_number: value.user_id_number,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <PaperProvider>
