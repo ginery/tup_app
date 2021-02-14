@@ -79,6 +79,8 @@ export default function signupScreen({navigation}) {
               user_id_number: data.id_number,
             });
             //navigation.goBack();
+          } else if (data.res == 2) {
+            Alert.alert('User already exist.');
           } else {
             Alert.alert('Something went wrong');
           }
@@ -169,6 +171,7 @@ export default function signupScreen({navigation}) {
         />
         <TextInput
           onChangeText={(text) => setPassword(text)}
+          secureTextEntry={true}
           value={password}
           style={{
             height: 40,
