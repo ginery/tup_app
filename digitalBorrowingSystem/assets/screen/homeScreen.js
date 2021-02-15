@@ -47,7 +47,16 @@ export default function homeScreen({navigation, route}) {
             <Appbar.Action
               icon="clipboard"
               style={{marginLeft: 'auto'}}
-              onPress={() => navigation.navigate('Request Form')}
+              onPress={() =>
+                navigation.navigate('Request Form', {
+                  user_id: user_id,
+                  user_name: user_name,
+                  user_contact: user_contact,
+                  user_email: user_email,
+                  user_course_sec: user_course_sec,
+                  user_id_number: user_id_number,
+                })
+              }
             />
           </Appbar>
           <View style={styles.textInputWrapper}>

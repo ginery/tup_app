@@ -43,10 +43,10 @@ export default function Tools({navigation, route}) {
 
   useEffect(() => {
     //retrieveData();
-    get_intruments();
+    get_tools();
   }, [1]);
 
-  function get_intruments() {
+  function get_tools() {
     const formData = new FormData();
     formData.append('user_id', user_id);
     fetch(global.global_url + 'get_tools.php', {
