@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -28,7 +28,9 @@ export default function homeScreen({navigation, route}) {
     user_course_sec,
     user_id_number,
   } = route.params;
-
+  useEffect(() => {
+    console.log('ISTOP!!!');
+  }, [1]);
   return (
     <>
       <PaperProvider>

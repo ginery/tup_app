@@ -12,7 +12,6 @@
   "dependencies": {
     "@freakycoder/react-native-bounceable": "^0.2.4",
     "@react-native-async-storage/async-storage": "^1.13.4",
-    "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/drawer": "^5.12.3",
     "@react-navigation/native": "^5.9.2",
