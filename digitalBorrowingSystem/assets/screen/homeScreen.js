@@ -19,12 +19,20 @@ import {
 const width_proportion = '90%';
 const btn_wrapper = '45%';
 const img_width = '100%';
-export default function homeScreen({navigation}) {
-  const [text, setText] = React.useState('');
+export default function homeScreen({navigation, route}) {
+  //form sign in and log in
+  const {
+    user_name,
+    user_contact,
+    user_email,
+    user_course_sec,
+    user_id_number,
+  } = route.params;
+
   return (
     <>
-      {/* <StatusBar barStyle="dark-content" /> */}
       <PaperProvider>
+        <StatusBar backgroundColor="#800000" />
         <View style={styles.wrapper}>
           <Appbar style={styles.bottom}>
             <Appbar.Action
@@ -36,7 +44,7 @@ export default function homeScreen({navigation}) {
             <Appbar.Action
               icon="clipboard"
               style={{marginLeft: 'auto'}}
-              onPress={() => console.log('Pressed delete')}
+              onPress={() => navigation.navigate('Request Form')}
             />
           </Appbar>
           <View style={styles.textInputWrapper}>
@@ -61,7 +69,8 @@ export default function homeScreen({navigation}) {
                   padding: 20,
                   borderRadius: 15,
                   backgroundColor: '#8b8b8b',
-                }}>
+                }}
+                onPress={() => navigation.navigate('Instruments')}>
                 <Image
                   source={require('../images/multimeter.png')}
                   style={{width: 100, height: 100, alignSelf: 'center'}}
@@ -97,7 +106,8 @@ export default function homeScreen({navigation}) {
                   padding: 20,
                   borderRadius: 15,
                   backgroundColor: '#8b8b8b',
-                }}>
+                }}
+                onPress={() => navigation.navigate('Components')}>
                 <Image
                   source={require('../images/resistor.png')}
                   style={{width: 100, height: 100, alignSelf: 'center'}}
@@ -128,7 +138,8 @@ export default function homeScreen({navigation}) {
                   padding: 20,
                   borderRadius: 15,
                   backgroundColor: '#8b8b8b',
-                }}>
+                }}
+                onPress={() => navigation.navigate('Tools')}>
                 <Image
                   source={require('../images/technics.png')}
                   style={{width: 100, height: 100, alignSelf: 'center'}}
@@ -226,8 +237,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    top: 1,
-    backgroundColor: '#820100',
+    top: 0,
+    backgroundColor: '#800000',
   },
   btn_view_wrapper: {
     // backgroundColor: 'steelblue',
