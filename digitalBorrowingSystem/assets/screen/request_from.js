@@ -86,167 +86,173 @@ export default function requestForm({navigation, route}) {
           />
         </Appbar>
         <View style={{marginTop: 55}}>
-          {/* <ScrollView> */}
-          <View
-            style={{
-              backgroundColor: 'white',
-              padding: 20,
-              margin: 20,
-              borderRadius: 15,
-            }}>
-            <Text style={{fontWeight: 'bold', fontSize: 20}}>{user_name}</Text>
-            <Text style={{fontSize: 20, color: 'grey'}}>{user_id_number}</Text>
-            <Text style={{fontSize: 20, color: 'grey'}}>{user_course_sec}</Text>
-          </View>
-          <View
-            style={{
-              borderBottomColor: 'white',
-              borderBottomWidth: 1,
-              marginLeft: 20,
-              marginRight: 20,
-            }}></View>
-          <View
-            style={{
-              backgroundColor: 'white',
-              padding: 20,
-              margin: 20,
-              borderRadius: 15,
-              flexDirection: 'column',
-            }}>
-            <Button
-              small
+          <ScrollView>
+            <View
               style={{
-                backgroundColor: '#a7a7a7',
-                width: 70,
+                backgroundColor: 'white',
+                padding: 20,
+                margin: 20,
                 borderRadius: 15,
-                alignSelf: 'flex-end',
-              }}
+              }}>
+              <Text style={{fontWeight: 'bold', fontSize: 20}}>
+                {user_name}
+              </Text>
+              <Text style={{fontSize: 20, color: 'grey'}}>
+                {user_id_number}
+              </Text>
+              <Text style={{fontSize: 20, color: 'grey'}}>
+                {user_course_sec}
+              </Text>
+            </View>
+            <View
+              style={{
+                borderBottomColor: 'white',
+                borderBottomWidth: 1,
+                marginLeft: 20,
+                marginRight: 20,
+              }}></View>
+            <View
+              style={{
+                backgroundColor: 'white',
+                padding: 20,
+                margin: 20,
+                borderRadius: 15,
+                flexDirection: 'column',
+              }}>
+              <Button
+                small
+                style={{
+                  backgroundColor: '#a7a7a7',
+                  width: 70,
+                  borderRadius: 15,
+                  alignSelf: 'flex-end',
+                }}
+                labelStyle={{
+                  color: 'white',
+                  alignContent: 'center',
+                  fontWeight: 'bold',
+                  fontSize: 10,
+                }}>
+                Edit
+              </Button>
+
+              <FlatList
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                scrollEnabled={true}
+                style={{alignContent: 'center', margin: 2}}
+                data={filteredDataSource}
+                renderItem={({item}) => (
+                  <RowItem
+                    user_id={user_id}
+                    user_id_number={user_id_number}
+                    item_image={item.item_image}
+                    item_name={item.item_name}
+                    item_code={item.item_code}
+                    item_qty={item.item_qty}
+                    bd_id={item.bd_id}
+                    b_id={item.b_id}
+                  />
+                )}
+                keyExtractor={(item) => item.bd_id.toString()}
+                // ItemSeparatorComponent={FlatListItemSeparator}
+              />
+            </View>
+            <View
+              style={{
+                borderBottomColor: 'white',
+                borderBottomWidth: 1,
+                marginLeft: 20,
+                marginRight: 20,
+              }}></View>
+            <View
+              style={{
+                backgroundColor: 'white',
+                padding: 20,
+                margin: 20,
+                borderRadius: 15,
+                flexDirection: 'column',
+              }}>
+              <TextInput
+                label="Teacher"
+                underlineColor="#a7a7a7"
+                style={{marginBottom: 20, fontWeight: 'bold'}}
+                theme={{
+                  colors: {
+                    placeholder: '#a7a7a7',
+                    text: 'black',
+                    primary: '#a7a7a7',
+                    // underlineColor: 'white',
+                    background: 'transparent',
+                  },
+                }}
+              />
+              <TextInput
+                label="Purpose"
+                underlineColor="#a7a7a7"
+                style={{marginBottom: 20, fontWeight: 'bold'}}
+                theme={{
+                  colors: {
+                    placeholder: '#a7a7a7',
+                    text: 'black',
+                    primary: '#a7a7a7',
+                    // underlineColor: 'white',
+                    background: 'transparent',
+                  },
+                }}
+              />
+              <TextInput
+                label="Teacher"
+                underlineColor="#a7a7a7"
+                style={{marginBottom: 20, fontWeight: 'bold'}}
+                theme={{
+                  colors: {
+                    placeholder: '#a7a7a7',
+                    text: 'black',
+                    primary: '#a7a7a7',
+
+                    // underlineColor: 'white',
+                    background: 'transparent',
+                  },
+                }}
+              />
+              <TextInput
+                label="Date & Time Borrowed"
+                underlineColor="#a7a7a7"
+                style={{marginBottom: 20, fontWeight: 'bold'}}
+                theme={{
+                  colors: {
+                    placeholder: '#a7a7a7',
+                    text: 'black',
+                    primary: '#a7a7a7',
+                    // underlineColor: 'white',
+                    background: 'transparent',
+                  },
+                }}
+              />
+            </View>
+            <Button
+              mode="Outlined"
               labelStyle={{
-                color: 'white',
+                color: '#6a96c2',
                 alignContent: 'center',
                 fontWeight: 'bold',
-                fontSize: 10,
-              }}>
-              Edit
+                fontSize: 20,
+              }}
+              // loading
+              style={{
+                borderWidth: 1,
+                borderColor: 'grey',
+                backgroundColor: 'white',
+                width: 200,
+                alignSelf: 'center',
+                borderRadius: 10,
+                marginBottom: 10,
+              }}
+              onPress={() => console.log('Pressed')}>
+              CONFIRM
             </Button>
-
-            <FlatList
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              scrollEnabled={true}
-              style={{alignContent: 'center', margin: 2}}
-              data={filteredDataSource}
-              renderItem={({item}) => (
-                <RowItem
-                  user_id={user_id}
-                  user_id_number={user_id_number}
-                  item_image={item.item_image}
-                  item_name={item.item_name}
-                  item_code={item.item_code}
-                  item_qty={item.item_qty}
-                  bd_id={item.bd_id}
-                  b_id={item.b_id}
-                />
-              )}
-              keyExtractor={(item) => item.bd_id.toString()}
-              // ItemSeparatorComponent={FlatListItemSeparator}
-            />
-          </View>
-          <View
-            style={{
-              borderBottomColor: 'white',
-              borderBottomWidth: 1,
-              marginLeft: 20,
-              marginRight: 20,
-            }}></View>
-          <View
-            style={{
-              backgroundColor: 'white',
-              padding: 20,
-              margin: 20,
-              borderRadius: 15,
-              flexDirection: 'column',
-            }}>
-            <TextInput
-              label="Teacher"
-              underlineColor="#a7a7a7"
-              style={{marginBottom: 20, fontWeight: 'bold'}}
-              theme={{
-                colors: {
-                  placeholder: '#a7a7a7',
-                  text: 'black',
-                  primary: '#a7a7a7',
-                  // underlineColor: 'white',
-                  background: 'transparent',
-                },
-              }}
-            />
-            <TextInput
-              label="Purpose"
-              underlineColor="#a7a7a7"
-              style={{marginBottom: 20, fontWeight: 'bold'}}
-              theme={{
-                colors: {
-                  placeholder: '#a7a7a7',
-                  text: 'black',
-                  primary: '#a7a7a7',
-                  // underlineColor: 'white',
-                  background: 'transparent',
-                },
-              }}
-            />
-            <TextInput
-              label="Teacher"
-              underlineColor="#a7a7a7"
-              style={{marginBottom: 20, fontWeight: 'bold'}}
-              theme={{
-                colors: {
-                  placeholder: '#a7a7a7',
-                  text: 'black',
-                  primary: '#a7a7a7',
-
-                  // underlineColor: 'white',
-                  background: 'transparent',
-                },
-              }}
-            />
-            <TextInput
-              label="Date & Time Borrowed"
-              underlineColor="#a7a7a7"
-              style={{marginBottom: 20, fontWeight: 'bold'}}
-              theme={{
-                colors: {
-                  placeholder: '#a7a7a7',
-                  text: 'black',
-                  primary: '#a7a7a7',
-                  // underlineColor: 'white',
-                  background: 'transparent',
-                },
-              }}
-            />
-          </View>
-          <Button
-            mode="Outlined"
-            labelStyle={{
-              color: '#6a96c2',
-              alignContent: 'center',
-              fontWeight: 'bold',
-              fontSize: 20,
-            }}
-            // loading
-            style={{
-              borderWidth: 1,
-              borderColor: 'grey',
-              backgroundColor: 'white',
-              width: 200,
-              alignSelf: 'center',
-              borderRadius: 10,
-              marginBottom: 10,
-            }}
-            onPress={() => console.log('Pressed')}>
-            CONFIRM
-          </Button>
-          {/* </ScrollView> */}
+          </ScrollView>
         </View>
       </View>
     </PaperProvider>
