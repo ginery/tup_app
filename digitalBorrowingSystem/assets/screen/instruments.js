@@ -30,7 +30,6 @@ import {
   List,
   Right,
 } from 'native-base';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Instrument({navigation, route}) {
   const {
     user_id,
@@ -48,12 +47,22 @@ export default function Instrument({navigation, route}) {
   }, [1]);
 
   function get_intruments() {
-    fetch(global.global_url + 'get_instruments.php', {})
+    const formData = new FormData();
+    formData.append('user_id', user_id);
+    fetch(global.global_url + 'get_instruments.php', {
+      method: 'POST',
+      header: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData,
+    })
       .then((response) => response.json())
       .then((responseJson) => {
         var data = responseJson.array_data[0];
         var data = responseJson.array_data.map(function (item, index) {
           return {
+            b_item: item.b_item,
             item_name: item.item_name,
             item_image: item.item_image,
             item_code: item.item_code,
@@ -103,6 +112,7 @@ export default function Instrument({navigation, route}) {
                   item_name={item.item_name}
                   item_code={item.item_code}
                   item_id={item.item_id}
+                  b_item={item.b_item}
                 />
               )}
               keyExtractor={(item) => item.item_id.toString()}
@@ -117,6 +127,7 @@ export default function Instrument({navigation, route}) {
 }
 
 function RowItem({
+  b_item,
   user_id,
   user_id_number,
   item_image,
@@ -124,9 +135,19 @@ function RowItem({
   item_code,
   item_id,
 }) {
-  console.log(user_id);
+  console.log(b_item);
+  // useEffect(() => {
+  //   if (status == 0) {
+  //     setBtnOnload(true);
+  //   } else {
+  //     setBtnOnload(false);
+  //   }
+  // }, [1]);
+
+  // const [btnOnload, setBtnOnload] = React.useState(false);
   const [btnColor, setColorBtn] = React.useState('');
   const [disable, setDisable] = React.useState(false);
+
   const btnAdd = (id, status) => {
     setColorBtn(status);
     setDisable(true);
@@ -146,7 +167,7 @@ function RowItem({
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
+        //console.log(responseJson);
       })
       .catch((error) => {
         console.error(error);
@@ -170,17 +191,32 @@ function RowItem({
             </Text>
           </Body>
           <Right>
-            <Button
-              disabled={disable}
-              onPress={() => btnAdd({item_id}, 1)}
-              style={{
-                //backgroundColor: setBtnDisable(),
-                backgroundColor: btnColor === 1 ? 'grey' : '#800000',
-                borderRadius: 15,
-              }}
-              labelStyle={{color: 'white', fontSize: 12}}>
-              <Text>add</Text>
-            </Button>
+            {item_id == b_item && (
+              <Button
+                disabled={true}
+                onPress={() => btnAdd({item_id}, 1)}
+                style={{
+                  //backgroundColor: setBtnDisable(),
+                  backgroundColor: 'grey',
+                  borderRadius: 15,
+                }}
+                labelStyle={{color: 'white', fontSize: 12}}>
+                <Text>add</Text>
+              </Button>
+            )}
+            {item_id != b_item && (
+              <Button
+                disabled={disable}
+                onPress={() => btnAdd({item_id}, 1)}
+                style={{
+                  //backgroundColor: setBtnDisable(),
+                  backgroundColor: btnColor === 1 ? 'grey' : '#800000',
+                  borderRadius: 15,
+                }}
+                labelStyle={{color: 'white', fontSize: 12}}>
+                <Text>add</Text>
+              </Button>
+            )}
           </Right>
         </ListItem>
       </List>

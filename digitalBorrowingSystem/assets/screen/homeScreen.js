@@ -119,7 +119,16 @@ export default function homeScreen({navigation, route}) {
                   borderRadius: 15,
                   backgroundColor: '#8b8b8b',
                 }}
-                onPress={() => navigation.navigate('Components')}>
+                onPress={() =>
+                  navigation.navigate('Components', {
+                    user_id: user_id,
+                    user_name: user_name,
+                    user_contact: user_contact,
+                    user_email: user_email,
+                    user_course_sec: user_course_sec,
+                    user_id_number: user_id_number,
+                  })
+                }>
                 <Image
                   source={require('../images/resistor.png')}
                   style={{width: 100, height: 100, alignSelf: 'center'}}
@@ -151,7 +160,16 @@ export default function homeScreen({navigation, route}) {
                   borderRadius: 15,
                   backgroundColor: '#8b8b8b',
                 }}
-                onPress={() => navigation.navigate('Tools')}>
+                onPress={() =>
+                  navigation.navigate('Tools', {
+                    user_id: user_id,
+                    user_name: user_name,
+                    user_contact: user_contact,
+                    user_email: user_email,
+                    user_course_sec: user_course_sec,
+                    user_id_number: user_id_number,
+                  })
+                }>
                 <Image
                   source={require('../images/technics.png')}
                   style={{width: 100, height: 100, alignSelf: 'center'}}
