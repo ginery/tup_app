@@ -1,12 +1,22 @@
 import React, {useState, useEffect, Alert} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-// import {createDrawerNavigator} from '@react-navigation/drawer';
-// // import loginScreen from './assets/screen/loginScreen';
-// import signupScreen from './assets/screen/signupScreen';
+// import {createStackNavigator} from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import loginScreen from './assets/screen/loginScreen';
+import signupScreen from './assets/screen/signupScreen';
+import homeScreen from './assets/screen/homeScreen';
+import Sidebar from './customDrawer';
+// import Navigator from './routes/drawer';
 
-// import homeScreen from './assets/screen/homeScreen';
-
-import DrawerNavigator from './routes/DrawNavigator';
+// const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItem label="test" />
+    </DrawerContentScrollView>
+  );
+}
 export default function App() {
   useEffect(() => {
     //mylocalhost
@@ -19,7 +29,10 @@ export default function App() {
   });
   return (
     <NavigationContainer>
-      <DrawerNavigator />
+      <Drawer.Navigator drawerContent={(props) => <Sidebar {...props} />}>
+        <Drawer.Screen name="Home" component={homeScreen} />
+        <Drawer.Screen name="Sign Up" component={signupScreen} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 }
