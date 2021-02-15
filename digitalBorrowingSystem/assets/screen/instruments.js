@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   StatusBar,
   FlatList,
-  CheckBox,
+  Alert,
 } from 'react-native';
 import {
   Provider as PaperProvider,
@@ -33,6 +33,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Instrument({navigation, route}) {
   const {
+    user_id,
     user_name,
     user_contact,
     user_email,
@@ -42,22 +43,10 @@ export default function Instrument({navigation, route}) {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
 
   useEffect(() => {
-    retrieveData();
+    //retrieveData();
     get_intruments();
   }, [1]);
-  const retrieveData = async () => {
-    try {
-      const valueString = await AsyncStorage.getItem('colorBtn');
-      const value = JSON.parse(valueString);
-      if (value == null) {
-        console.log('empty');
-      } else {
-        console.log(value);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   function get_intruments() {
     fetch(global.global_url + 'get_instruments.php', {})
       .then((response) => response.json())
@@ -108,6 +97,8 @@ export default function Instrument({navigation, route}) {
               data={filteredDataSource}
               renderItem={({item}) => (
                 <RowItem
+                  user_id={user_id}
+                  user_id_number={user_id_number}
                   item_image={item.item_image}
                   item_name={item.item_name}
                   item_code={item.item_code}
@@ -125,17 +116,26 @@ export default function Instrument({navigation, route}) {
   );
 }
 
-function RowItem({item_image, item_name, item_code, item_id}) {
+function RowItem({
+  user_id,
+  user_id_number,
+  item_image,
+  item_name,
+  item_code,
+  item_id,
+}) {
+  console.log(user_id);
   const [btnColor, setColorBtn] = React.useState('');
+  const [disable, setDisable] = React.useState(false);
   const btnAdd = (id, status) => {
     setColorBtn(status);
+    setDisable(true);
+
     const formData = new FormData();
-    formData.append('id', name);
-    formData.append('contact_number', contact_number);
-    formData.append('email', email);
-    formData.append('course_sec', course_sec);
-    formData.append('id_number', id_number);
-    formData.append('password', password);
+    formData.append('user_id', user_id);
+    formData.append('item_id', item_id);
+    formData.append('qty', 1);
+
     fetch(global.global_url + 'borrow.php', {
       method: 'POST',
       headers: {
@@ -171,7 +171,7 @@ function RowItem({item_image, item_name, item_code, item_id}) {
           </Body>
           <Right>
             <Button
-              //disabled={true}
+              disabled={disable}
               onPress={() => btnAdd({item_id}, 1)}
               style={{
                 //backgroundColor: setBtnDisable(),

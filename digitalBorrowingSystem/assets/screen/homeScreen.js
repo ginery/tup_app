@@ -22,6 +22,7 @@ const img_width = '100%';
 export default function homeScreen({navigation, route}) {
   //form sign in and log in
   const {
+    user_id,
     user_name,
     user_contact,
     user_email,
@@ -72,7 +73,16 @@ export default function homeScreen({navigation, route}) {
                   borderRadius: 15,
                   backgroundColor: '#8b8b8b',
                 }}
-                onPress={() => navigation.navigate('Instruments')}>
+                onPress={() =>
+                  navigation.navigate('Instruments', {
+                    user_id: user_id,
+                    user_name: user_name,
+                    user_contact: user_contact,
+                    user_email: user_email,
+                    user_course_sec: user_course_sec,
+                    user_id_number: user_id_number,
+                  })
+                }>
                 <Image
                   source={require('../images/multimeter.png')}
                   style={{width: 100, height: 100, alignSelf: 'center'}}

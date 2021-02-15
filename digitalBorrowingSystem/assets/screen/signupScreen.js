@@ -65,6 +65,7 @@ export default function signupScreen({navigation}) {
           if (data.res == 1) {
             Alert.alert('Successfull Signed up.');
             setItemStorage('user_details', {
+              user_id: data.id,
               user_name: data.name,
               user_contact: data.contact_number,
               user_email: data.email,
@@ -72,6 +73,7 @@ export default function signupScreen({navigation}) {
               user_id_number: data.id_number,
             });
             navigation.navigate('Home Screen', {
+              user_id: data.id,
               user_name: data.name,
               user_contact: data.contact_number,
               user_email: data.email,
