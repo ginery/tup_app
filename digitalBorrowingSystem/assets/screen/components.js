@@ -142,14 +142,13 @@ function RowItem({
   // console.log(item_qty);
   var quantiy = item_qty.toString();
   const [item_quantity, setQuantity] = useState(quantiy);
-  function btnAdd(item_id) {
+  function btnAdd(i_id) {
     var add = parseInt(item_quantity) + 1;
     setQuantity(add.toString());
 
     const formData = new FormData();
     formData.append('user_id', user_id);
-    formData.append('item_id', item_id);
-    //formData.append('bd_id', bd_id);
+    formData.append('item_id', i_id);
     formData.append('qty', 1);
 
     fetch(global.global_url + 'borrow_components.php', {
@@ -169,7 +168,7 @@ function RowItem({
         Alert.alert('Internet Connection Error');
       });
   }
-  function btnMinus(item_id) {
+  function btnMinus(i_id) {
     if (parseInt(item_quantity) == 0) {
       var minus = 0;
     } else {
@@ -177,7 +176,7 @@ function RowItem({
       setQuantity(minus.toString());
       const formData = new FormData();
       formData.append('user_id', user_id);
-      formData.append('item_id', item_id);
+      formData.append('item_id', i_id);
       formData.append('qty', 1);
 
       fetch(global.global_url + 'borrow_components_minus.php', {
