@@ -71,6 +71,10 @@ export default function Instrument({navigation, route}) {
         });
         console.log(data);
         setFilteredDataSource(data);
+      })
+      .catch((error) => {
+        console.error(error);
+        Alert.alert('Internet Connection Error');
       });
   }
 

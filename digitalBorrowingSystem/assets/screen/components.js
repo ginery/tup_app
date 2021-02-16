@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   StatusBar,
+  FlatList,
 } from 'react-native';
 import {
   Provider as PaperProvider,
@@ -29,7 +30,54 @@ import {
   Right,
 } from 'native-base';
 import CounterInput from 'react-native-counter-input';
-export default function Components({navigation}) {
+export default function Components({navigation, route}) {
+  const {
+    user_id,
+    user_name,
+    user_contact,
+    user_email,
+    user_course_sec,
+    user_id_number,
+  } = route.params;
+  const [filteredDataSource, setFilteredDataSource] = useState([]);
+
+  useEffect(() => {
+    //retrieveData();
+    get_components();
+  }, [1]);
+
+  function get_components() {
+    const formData = new FormData();
+    formData.append('user_id', user_id);
+    fetch(global.global_url + 'get_components.php', {
+      method: 'POST',
+      header: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        var data = responseJson.array_data[0];
+        var data = responseJson.array_data.map(function (item, index) {
+          return {
+            b_item: item.b_item,
+            item_name: item.item_name,
+            item_image: item.item_image,
+            item_code: item.item_code,
+            item_id: item.item_id,
+            item_qty: item.item_qty,
+          };
+        });
+        console.log(data);
+        setFilteredDataSource(data);
+      })
+      .catch((error) => {
+        console.error(error);
+        Alert.alert('Internet Connection Error');
+      });
+  }
   return (
     <PaperProvider>
       <StatusBar backgroundColor="#800000" />
@@ -47,86 +95,153 @@ export default function Components({navigation}) {
         </Appbar>
 
         <View style={{marginTop: 55}}>
-          <ScrollView>
-            <View
-              style={{
-                backgroundColor: 'white',
-                padding: 20,
-                margin: 20,
-                borderRadius: 15,
-              }}>
-              <Content>
-                <List>
-                  <ListItem thumbnail>
-                    <Left>
-                      <Thumbnail
-                        square
-                        source={require('../images/resistor.png')}
-                      />
-                    </Left>
-                    <Body>
-                      <Text>Sankhadeep</Text>
-                      <Text note numberOfLines={1}>
-                        Its time to build a difference . .
-                      </Text>
-                    </Body>
-                    <Right>
-                      <Button
-                        style={{backgroundColor: '#800000', borderRadius: 15}}
-                        labelStyle={{color: 'white', fontSize: 12}}>
-                        <Text>add</Text>
-                      </Button>
-                    </Right>
-                  </ListItem>
-                  <ListItem thumbnail>
-                    <Left>
-                      <Thumbnail
-                        square
-                        source={require('../images/resistor.png')}
-                      />
-                    </Left>
-                    <Body>
-                      <Text>Sankhadeep</Text>
-                      <Text note numberOfLines={3}>
-                        Its time to build a difference fsadfasfasfasd
-                      </Text>
-                    </Body>
-                    <Right>
-                      <Button
-                        style={{backgroundColor: '#800000', borderRadius: 15}}
-                        labelStyle={{color: 'white', fontSize: 12}}>
-                        <Text>add</Text>
-                      </Button>
-                    </Right>
-                  </ListItem>
-                  <ListItem thumbnail>
-                    <Left>
-                      <Thumbnail
-                        square
-                        source={require('../images/resistor.png')}
-                      />
-                    </Left>
-                    <Body>
-                      <Text>Sankhadeep</Text>
-                      <Text note numberOfLines={1}>
-                        Its time to build a difference . .
-                      </Text>
-                    </Body>
-                    <Right>
-                      <Button
-                        style={{backgroundColor: '#800000', borderRadius: 15}}
-                        labelStyle={{color: 'white', fontSize: 12}}>
-                        <Text>add</Text>
-                      </Button>
-                    </Right>
-                  </ListItem>
-                </List>
-              </Content>
-            </View>
-          </ScrollView>
+          <View
+            style={{
+              backgroundColor: 'white',
+              padding: 20,
+              margin: 20,
+              borderRadius: 15,
+            }}>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              style={{alignContent: 'center', margin: 2}}
+              data={filteredDataSource}
+              renderItem={({item}) => (
+                <RowItem
+                  user_id={user_id}
+                  user_id_number={user_id_number}
+                  item_image={item.item_image}
+                  item_name={item.item_name}
+                  item_code={item.item_code}
+                  item_id={item.item_id}
+                  b_item={item.b_item}
+                  item_qty={item.item_qty}
+                />
+              )}
+              keyExtractor={(item) => item.item_id.toString()}
+              // ItemSeparatorComponent={FlatListItemSeparator}
+            />
+          </View>
         </View>
       </View>
     </PaperProvider>
+  );
+}
+
+function RowItem({
+  b_item,
+  user_id,
+  user_id_number,
+  item_image,
+  item_name,
+  item_code,
+  item_id,
+  item_qty,
+}) {
+  // console.log(item_qty);
+  var quantiy = item_qty.toString();
+  const [item_quantity, setQuantity] = useState(quantiy);
+  function btnAdd(item_id) {
+    var add = parseInt(item_quantity) + 1;
+    setQuantity(add.toString());
+
+    const formData = new FormData();
+    formData.append('user_id', user_id);
+    formData.append('item_id', item_id);
+    //formData.append('bd_id', bd_id);
+    formData.append('qty', 1);
+
+    fetch(global.global_url + 'borrow_components.php', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+      })
+      .catch((error) => {
+        console.error(error);
+        Alert.alert('Internet Connection Error');
+      });
+  }
+  function btnMinus(item_id) {
+    if (parseInt(item_quantity) == 0) {
+      var minus = 0;
+    } else {
+      var minus = parseInt(item_quantity) - 1;
+      setQuantity(minus.toString());
+      const formData = new FormData();
+      formData.append('user_id', user_id);
+      formData.append('item_id', item_id);
+      formData.append('qty', 1);
+
+      fetch(global.global_url + 'borrow_components_minus.php', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+        },
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          console.log(responseJson);
+        })
+        .catch((error) => {
+          console.error(error);
+          Alert.alert('Internet Connection Error');
+        });
+    }
+  }
+  return (
+    <Content>
+      <List>
+        <ListItem thumbnail>
+          <Left>
+            <Thumbnail square source={{uri: global.images + item_image}} />
+          </Left>
+          <Body>
+            <Text style={{fontWeight: 'bold'}}>{item_name}</Text>
+            <Text note numberOfLines={3}>
+              {item_code}
+            </Text>
+          </Body>
+          <Right>
+            <Button
+              onPress={() => btnAdd(item_id)}
+              style={{backgroundColor: '#800000', borderRadius: 0}}
+              labelStyle={{color: 'white', fontSize: 12}}>
+              <Text>+</Text>
+            </Button>
+            <TextInput
+              onChangeText={(text) => setQuantity(text)}
+              value={item_quantity}
+              disabled={true}
+              style={{
+                fontSize: 20,
+                textAlign: 'center',
+                // borderBottomWidth: 1,
+                // borderColor: 'black',
+                width: 62,
+                fontWeight: 'bold',
+                height: 30,
+              }}
+            />
+            <Button
+              onPress={() => btnMinus(item_id)}
+              style={{backgroundColor: 'grey', borderRadius: 0}}
+              labelStyle={{color: 'white', fontSize: 12}}>
+              <Text>-</Text>
+            </Button>
+          </Right>
+        </ListItem>
+      </List>
+    </Content>
   );
 }
 const styles = StyleSheet.create({

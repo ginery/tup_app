@@ -75,7 +75,7 @@ export default function loginScreen({navigation}) {
         .then((response) => response.json())
         .then((responseJson) => {
           var data = responseJson.array_data[0];
-          console.log(responseJson);
+          console.log(data.res);
           if (data.res == 1) {
             Alert.alert('Successfull Signed up.');
             setItemStorage('user_details', {

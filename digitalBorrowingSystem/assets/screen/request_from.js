@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StatusBar,
   FlatList,
+  Alert,
 } from 'react-native';
 import {
   Provider as PaperProvider,
@@ -28,8 +29,9 @@ import {
   Body,
   List,
   Right,
+  Icon,
 } from 'native-base';
-
+import DateTimePicker from '@react-native-community/datetimepicker';
 export default function requestForm({navigation, route}) {
   const {
     user_id,
@@ -39,10 +41,39 @@ export default function requestForm({navigation, route}) {
     user_course_sec,
     user_id_number,
   } = route.params;
+  var today = new Date();
+  var date =
+    today.getFullYear() +
+    '-' +
+    makeTwoDigits(parseInt(today.getMonth() + 1)) +
+    '-' +
+    today.getDate();
+
+  var time =
+    makeTwoDigits(today.getHours()) +
+    ':' +
+    makeTwoDigits(today.getMinutes()) +
+    ':' +
+    makeTwoDigits(today.getSeconds());
+  /// make date and time 2 digit
+  function makeTwoDigits(time) {
+    const timeString = `${time}`;
+    if (timeString.length === 2) return time;
+    return `0${time}`;
+  }
+  const dateTime = date + ' ' + time;
+
+  const [confirmBtn, setConfirmBtn] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
+  const [teacher_name, setTeacher] = useState('');
+  const [purpose, setPurpose] = useState('');
+  const [date_time, setDate_Time] = useState('');
+  const [showRemove, setShowRemove] = useState('');
+  //console.log(confirmBtn);
   useEffect(() => {
     getBorrow();
-  }, [1]);
+  });
+
   function getBorrow() {
     const formData = new FormData();
     formData.append('user_id', user_id);
@@ -56,23 +87,72 @@ export default function requestForm({navigation, route}) {
     })
       .then((response) => response.json())
       .then((responseJson) => {
+        var data = responseJson.array_data[0];
         var data = responseJson.array_data.map(function (item, index) {
           return {
+            count: item.count,
             item_name: item.item_name,
             item_image: item.item_image,
             item_code: item.item_code,
+            item_id: item.item_id,
             item_qty: item.item_qty,
             bd_id: item.bd_id,
             b_id: item.b_id,
           };
         });
-        console.log(data);
+        // console.log(data.count);
         setFilteredDataSource(data);
+        setConfirmBtn(data.count);
       })
       .catch((error) => {
         console.error(error);
         Alert.alert('Internet Connection Error');
       });
+  }
+
+  function confirmRequest() {
+    if (
+      !user_id.trim() ||
+      !teacher_name.trim() ||
+      !purpose.trim()
+      // !date_time.trim()
+    ) {
+      Alert.alert('Please fill up all text box.');
+    } else {
+      const formData = new FormData();
+      formData.append('user_id', user_id);
+      formData.append('teacher_name', teacher_name);
+      formData.append('purpose', purpose);
+      formData.append('date', date_time);
+      fetch(global.global_url + 'confirm_request.php', {
+        method: 'POST',
+        header: {
+          Accept: 'application/json',
+          'Content-type': 'multipart/form-data',
+        },
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          var data = responseJson.array_data[0];
+          if (data.res == 1) {
+            Alert.alert('Confirm Success!!');
+            navigation.goBack();
+          }
+          console.log(responseJson);
+        })
+        .catch((error) => {
+          console.error(error);
+          Alert.alert('Internet Connection Error');
+        });
+    }
+  }
+  function removeBtn() {
+    console.log('press!');
+    setShowRemove(true);
+  }
+  function timeBtn() {
+    setShowRemove(false);
   }
   return (
     <PaperProvider>
@@ -119,22 +199,48 @@ export default function requestForm({navigation, route}) {
                 borderRadius: 15,
                 flexDirection: 'column',
               }}>
-              <Button
-                small
-                style={{
-                  backgroundColor: '#a7a7a7',
-                  width: 70,
-                  borderRadius: 15,
-                  alignSelf: 'flex-end',
-                }}
-                labelStyle={{
-                  color: 'white',
-                  alignContent: 'center',
-                  fontWeight: 'bold',
-                  fontSize: 10,
-                }}>
-                Edit
-              </Button>
+              {showRemove != true && (
+                <Button
+                  onPress={() => {
+                    removeBtn();
+                  }}
+                  small
+                  style={{
+                    backgroundColor: '#a7a7a7',
+                    width: 70,
+                    borderRadius: 15,
+                    alignSelf: 'flex-end',
+                  }}
+                  labelStyle={{
+                    color: 'white',
+                    alignContent: 'center',
+                    fontWeight: 'bold',
+                    fontSize: 10,
+                  }}>
+                  Edit
+                </Button>
+              )}
+              {showRemove == true && (
+                <Button
+                  onPress={() => {
+                    timeBtn();
+                  }}
+                  small
+                  style={{
+                    backgroundColor: '#a7a7a7',
+                    width: 70,
+                    borderRadius: 15,
+                    alignSelf: 'flex-end',
+                  }}
+                  labelStyle={{
+                    color: 'white',
+                    alignContent: 'center',
+                    fontWeight: 'bold',
+                    fontSize: 10,
+                  }}>
+                  Hide
+                </Button>
+              )}
 
               <FlatList
                 showsHorizontalScrollIndicator={false}
@@ -150,8 +256,10 @@ export default function requestForm({navigation, route}) {
                     item_name={item.item_name}
                     item_code={item.item_code}
                     item_qty={item.item_qty}
+                    item_id={item.item_id}
                     bd_id={item.bd_id}
                     b_id={item.b_id}
+                    showRemove={showRemove}
                   />
                 )}
                 keyExtractor={(item) => item.bd_id.toString()}
@@ -174,6 +282,8 @@ export default function requestForm({navigation, route}) {
                 flexDirection: 'column',
               }}>
               <TextInput
+                onChangeText={(text) => setTeacher(text)}
+                value={teacher_name}
                 label="Teacher"
                 underlineColor="#a7a7a7"
                 style={{marginBottom: 20, fontWeight: 'bold'}}
@@ -188,6 +298,8 @@ export default function requestForm({navigation, route}) {
                 }}
               />
               <TextInput
+                onChangeText={(text) => setPurpose(text)}
+                value={purpose}
                 label="Purpose"
                 underlineColor="#a7a7a7"
                 style={{marginBottom: 20, fontWeight: 'bold'}}
@@ -202,7 +314,10 @@ export default function requestForm({navigation, route}) {
                 }}
               />
               <TextInput
-                label="Teacher"
+                disabled={true}
+                //onChangeText={(text) => setDate_Time(text)}
+                value={dateTime}
+                label="Date and Time Borrowed (y-m-d h-m-s)"
                 underlineColor="#a7a7a7"
                 style={{marginBottom: 20, fontWeight: 'bold'}}
                 theme={{
@@ -210,48 +325,34 @@ export default function requestForm({navigation, route}) {
                     placeholder: '#a7a7a7',
                     text: 'black',
                     primary: '#a7a7a7',
-
-                    // underlineColor: 'white',
-                    background: 'transparent',
-                  },
-                }}
-              />
-              <TextInput
-                label="Date & Time Borrowed"
-                underlineColor="#a7a7a7"
-                style={{marginBottom: 20, fontWeight: 'bold'}}
-                theme={{
-                  colors: {
-                    placeholder: '#a7a7a7',
-                    text: 'black',
-                    primary: '#a7a7a7',
-                    // underlineColor: 'white',
                     background: 'transparent',
                   },
                 }}
               />
             </View>
-            <Button
-              mode="Outlined"
-              labelStyle={{
-                color: '#6a96c2',
-                alignContent: 'center',
-                fontWeight: 'bold',
-                fontSize: 20,
-              }}
-              // loading
-              style={{
-                borderWidth: 1,
-                borderColor: 'grey',
-                backgroundColor: 'white',
-                width: 200,
-                alignSelf: 'center',
-                borderRadius: 10,
-                marginBottom: 10,
-              }}
-              onPress={() => console.log('Pressed')}>
-              CONFIRM
-            </Button>
+            {confirmBtn > 0 && (
+              <Button
+                mode="Outlined"
+                labelStyle={{
+                  color: '#6a96c2',
+                  alignContent: 'center',
+                  fontWeight: 'bold',
+                  fontSize: 20,
+                }}
+                // loading
+                style={{
+                  borderWidth: 1,
+                  borderColor: 'grey',
+                  backgroundColor: 'white',
+                  width: 200,
+                  alignSelf: 'center',
+                  borderRadius: 10,
+                  marginBottom: 10,
+                }}
+                onPress={() => confirmRequest()}>
+                CONFIRM
+              </Button>
+            )}
           </ScrollView>
         </View>
       </View>
@@ -260,6 +361,7 @@ export default function requestForm({navigation, route}) {
 }
 
 function RowItem({
+  item_id,
   user_id,
   user_id_number,
   item_image,
@@ -268,7 +370,36 @@ function RowItem({
   bd_id,
   b_id,
   item_qty,
+  showRemove,
 }) {
+  function removeItem(item_id, b_id) {
+    const formData = new FormData();
+    formData.append('b_id', b_id);
+    formData.append('item_id', item_id);
+    fetch(global.global_url + 'removeItem.php', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(responseJson);
+        var data = responseJson.array_data[0];
+        if (data.res == 1) {
+          Alert.alert('Remove successfull!');
+        } else {
+          Alert.alert('Something went wrong');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        Alert.alert('Internet Connection Error');
+      });
+    // console.log(item_id);
+  }
   return (
     <Content>
       <List>
@@ -283,7 +414,23 @@ function RowItem({
             </Text>
           </Body>
           <Right>
-            <Text>x{item_qty}</Text>
+            {showRemove == true && (
+              <Button
+                onPress={() => {
+                  removeItem(item_id, b_id);
+                }}
+                style={{
+                  //backgroundColor: setBtnDisable(),
+                  backgroundColor: '#f44336',
+                  borderRadius: 15,
+                }}
+                labelStyle={{color: 'white', fontSize: 12}}>
+                <Text>
+                  <Icon name="trash" />
+                </Text>
+              </Button>
+            )}
+            {showRemove != true && <Text>x{item_qty}</Text>}
           </Right>
         </ListItem>
       </List>

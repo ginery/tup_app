@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   StatusBar,
+  Alert,
 } from 'react-native';
 import {
   Provider as PaperProvider,
@@ -16,13 +17,77 @@ import {
   TextInput,
 } from 'react-native-paper';
 import {Card, Container, Content, Left, Thumbnail} from 'native-base';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //for height of wrapper text info
 const width_proportion = '100%';
 const height = '35%';
 const img_width = '100%';
 export default function accountDetails({navigation}) {
-  const [text, setText] = React.useState('Test Name');
+  useEffect(() => {
+    retrieveData();
+  }, [1]);
+  const retrieveData = async () => {
+    try {
+      const valueString = await AsyncStorage.getItem('user_details');
+      const value = JSON.parse(valueString);
+      if (valueString == null || valueString == '') {
+        console.log('empty');
+      } else {
+        console.log('with value');
+        setUserID(value.user_id);
+        setFullname(value.user_name);
+        setCourseSec(value.user_course_sec);
+        setEmail(value.user_email);
+        setIdNumber(value.user_id_number);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  function signOut() {
+    AsyncStorage.removeItem('user_details');
+  }
+  const [user_id, setUserID] = useState('');
+  const [fullname, setFullname] = useState('');
+  const [course_sec, setCourseSec] = useState('');
+  const [email, setEmail] = useState('');
+  const [id_number, setIdNumber] = useState('');
+
+  const [password, setPassword] = React.useState('');
+
+  function updateAccount() {
+    const formData = new FormData();
+    formData.append('user_id', user_id);
+    formData.append('fullname', fullname);
+    formData.append('course_sec', course_sec);
+    formData.append('email', email);
+    formData.append('id_number', id_number);
+    formData.append('password', password);
+    fetch(global.global_url + 'updateAccount.php', {
+      method: 'POST',
+      header: {
+        Accept: 'application/java',
+        'Content-type': 'multipart/form-data',
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        var data = responseJson.array_data[0];
+        console.log(responseJson);
+        if (data.res == 1) {
+          Alert.alert('Sucess! you will be log out for security purposes.');
+          navigation.navigate('Login');
+          signOut();
+        } else {
+          Alert.alert('Something went wrong.');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        Alert.alert('Internet Connection Error');
+      });
+  }
   return (
     <>
       {/* <StatusBar barStyle="dark-content" /> */}
@@ -35,7 +100,6 @@ export default function accountDetails({navigation}) {
               style={{marginRight: 'auto'}}
               onPress={() => navigation.openDrawer()}
             />
-
             <Appbar.Action
               icon="clipboard"
               style={{marginLeft: 'auto'}}
@@ -51,18 +115,16 @@ export default function accountDetails({navigation}) {
               }
             />
           </Appbar>
-
           <View style={styles.textInputWrapper}>
             <Thumbnail
               style={{marginTop: 15, width: 90, height: 90}}
               source={require('../images/profile.png')}
             />
-
             <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18}}>
-              Louiella Igpuara
+              {fullname}
             </Text>
             <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18}}>
-              18-503-0104
+              {id_number}
             </Text>
           </View>
           <ScrollView
@@ -74,8 +136,8 @@ export default function accountDetails({navigation}) {
             <View style={styles.textContentWrapper}>
               <TextInput
                 label="FullName"
-                value={text}
-                onChangeText={(text) => setText(text)}
+                value={fullname}
+                onChangeText={(text) => setFullname(text)}
                 underlineColor="#a7a7a7"
                 style={{marginBottom: 20}}
                 theme={{
@@ -90,8 +152,8 @@ export default function accountDetails({navigation}) {
               />
               <TextInput
                 label="Course and Section"
-                value={text}
-                onChangeText={(text) => setText(text)}
+                value={course_sec}
+                onChangeText={(text) => setCourseSec(text)}
                 underlineColor="#a7a7a7"
                 style={{marginBottom: 20}}
                 theme={{
@@ -106,8 +168,8 @@ export default function accountDetails({navigation}) {
               />
               <TextInput
                 label="Email"
-                value={text}
-                onChangeText={(text) => setText(text)}
+                value={email}
+                onChangeText={(text) => setEmail(text)}
                 underlineColor="#a7a7a7"
                 style={{marginBottom: 20}}
                 theme={{
@@ -122,8 +184,8 @@ export default function accountDetails({navigation}) {
               />
               <TextInput
                 label="ID Number"
-                value={text}
-                onChangeText={(text) => setText(text)}
+                value={id_number}
+                onChangeText={(text) => setIdNumber(text)}
                 underlineColor="#a7a7a7"
                 style={{marginBottom: 20}}
                 theme={{
@@ -138,8 +200,9 @@ export default function accountDetails({navigation}) {
               />
               <TextInput
                 label="Password"
-                value={text}
-                onChangeText={(text) => setText(text)}
+                value={password}
+                secureTextEntry={true}
+                onChangeText={(text) => setPassword(text)}
                 underlineColor="#a7a7a7"
                 style={{marginBottom: 20}}
                 theme={{
@@ -169,7 +232,7 @@ export default function accountDetails({navigation}) {
                   alignSelf: 'center',
                   // borderRadius: 10,
                 }}
-                onPress={() => console.log('Pressed')}>
+                onPress={() => updateAccount()}>
                 UPDATE
               </Button>
             </View>
