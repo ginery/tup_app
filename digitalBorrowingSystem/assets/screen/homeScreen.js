@@ -204,6 +204,7 @@ export default function homeScreen({navigation, route}) {
                   margin: 10,
                 }}></View>
               <TouchableOpacity
+                onPress={() => navigation.navigate('Guide')}
                 style={{
                   // borderWidth: 1,
                   // borderColor: 'black',
