@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "768057974677",
+    "project_id": "digitalborrowingsystem-c5d53",
+    "storage_bucket": "digitalborrowingsystem-c5d53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768057974677:android:4c410134d78b1d4000609c",
+        "android_client_info": {
+          "package_name": "com.digitalborrowingsystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768057974677-nfs0lafuondrgs6ultdrdquks8g79v8v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKhObrH-iCA62izHiWyzmd25KZME5LgQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768057974677-nfs0lafuondrgs6ultdrdquks8g79v8v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
