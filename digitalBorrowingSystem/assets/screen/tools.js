@@ -89,7 +89,7 @@ export default function Tools({navigation, route}) {
             onPress={() => navigation.goBack()}
           />
           <Appbar.Content
-            title="Instrument"
+            title="Tools"
             style={{alignItems: 'center', marginRight: 50}}
           />
         </Appbar>
