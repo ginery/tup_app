@@ -74,10 +74,10 @@ export default function requestForm({navigation, route}) {
   const [purpose, setPurpose] = useState('');
   const [date_time, setDate_Time] = useState('');
   const [showRemove, setShowRemove] = useState('');
-  //console.log(confirmBtn);
+  // console.log(confirmBtn);
   useEffect(() => {
     getBorrow();
-  }, [1]);
+  });
 
   function getBorrow() {
     const formData = new FormData();
@@ -106,12 +106,12 @@ export default function requestForm({navigation, route}) {
           };
         });
         var counter = responseJson.array_data.length;
-        if (counter == 1) {
-          setConfirmBtn(counter);
+        if (counter > 0) {
+          setConfirmBtn(true);
         } else {
-          setConfirmBtn(0);
+          setConfirmBtn(false);
         }
-        console.log(responseJson.array_data.length);
+        console.log(counter);
         setFilteredDataSource(data);
       })
       .catch((error) => {
@@ -147,8 +147,8 @@ export default function requestForm({navigation, route}) {
           };
         });
         console.log(responseJson.array_data[0].ref);
-        var counter = ref.length;
-        if (counter > 0) {
+        var ctr = ref.length;
+        if (ctr > 0) {
           setModalData(responseJson.array_data[0].ref);
         } else {
           setModalData('');
@@ -254,7 +254,9 @@ export default function requestForm({navigation, route}) {
               }}>
               {showRemove != true && (
                 <Button
-                  onPress={() => {}}
+                  onPress={() => {
+                    removeBtn();
+                  }}
                   small
                   style={{
                     backgroundColor: '#a7a7a7',
@@ -381,7 +383,7 @@ export default function requestForm({navigation, route}) {
                 }}
               />
             </View>
-            {confirmBtn > 0 && (
+            {confirmBtn == true && (
               <Button
                 mode="Outlined"
                 labelStyle={{
@@ -427,7 +429,7 @@ export default function requestForm({navigation, route}) {
             style={{alignContent: 'center', margin: 2}}
             data={modalDataItem}
             renderItem={({item}) => (
-              <RowItem
+              <RowItem1
                 user_id={user_id}
                 user_id_number={user_id_number}
                 item_image={item.item_image}
@@ -437,7 +439,6 @@ export default function requestForm({navigation, route}) {
                 item_id={item.item_id}
                 bd_id={item.bd_id}
                 b_id={item.b_id}
-                showRemove={showRemove}
               />
             )}
             keyExtractor={(item) => item.bd_id.toString()}
@@ -449,6 +450,84 @@ export default function requestForm({navigation, route}) {
   );
 }
 
+function RowItem1({
+  item_id,
+  user_id,
+  user_id_number,
+  item_image,
+  item_name,
+  item_code,
+  bd_id,
+  b_id,
+  item_qty,
+}) {
+  function removeItem(item_id, b_id) {
+    const formData = new FormData();
+    formData.append('b_id', b_id);
+    formData.append('item_id', item_id);
+    fetch(global.global_url + 'removeItem.php', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        // console.log(responseJson);
+        var data = responseJson.array_data[0];
+        if (data.res == 1) {
+          Alert.alert('Remove successfull!');
+        } else {
+          Alert.alert('Something went wrong');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        Alert.alert('Internet Connection Error');
+      });
+    // console.log(item_id);
+  }
+  return (
+    <Content>
+      <List>
+        <ListItem thumbnail>
+          <Left>
+            <Thumbnail square source={{uri: global.images + item_image}} />
+          </Left>
+          <Body>
+            <Text>
+              {item_name} {showRemove}
+            </Text>
+            <Text note numberOfLines={1}>
+              {item_code}
+            </Text>
+          </Body>
+          <Right>
+            {showRemove == true && (
+              <Button
+                onPress={() => {
+                  removeItem(item_id, b_id);
+                }}
+                style={{
+                  //backgroundColor: setBtnDisable(),
+                  backgroundColor: '#f44336',
+                  borderRadius: 15,
+                }}
+                labelStyle={{color: 'white', fontSize: 12}}>
+                <Text>
+                  <Icon name="trash" />
+                </Text>
+              </Button>
+            )}
+            {showRemove != true && <Text>x{item_qty}</Text>}
+          </Right>
+        </ListItem>
+      </List>
+    </Content>
+  );
+}
 function RowItem({
   item_id,
   user_id,
