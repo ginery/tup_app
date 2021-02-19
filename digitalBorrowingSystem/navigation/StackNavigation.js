@@ -8,6 +8,7 @@ import RequestForm from '../assets/screen/request_from';
 import Instruments from '../assets/screen/instruments';
 import Components from '../assets/screen/components';
 import Tools from '../assets/screen/tools';
+import Guide from '../assets/screen/guide';
 const Stack = createStackNavigator();
 const MainStackNavigator = () => {
   return (
@@ -45,6 +46,11 @@ const MainStackNavigator = () => {
       <Stack.Screen
         name="Tools"
         component={Tools}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Guide"
+        component={Guide}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

@@ -67,6 +67,7 @@ export default function Instrument({navigation, route}) {
             item_image: item.item_image,
             item_code: item.item_code,
             item_id: item.item_id,
+            item_status: item.item_status,
           };
         });
         console.log(data);
@@ -89,7 +90,7 @@ export default function Instrument({navigation, route}) {
             onPress={() => navigation.goBack()}
           />
           <Appbar.Content
-            title="Instrument"
+            title="Instruments"
             style={{alignItems: 'center', marginRight: 50}}
           />
         </Appbar>
@@ -117,6 +118,7 @@ export default function Instrument({navigation, route}) {
                   item_code={item.item_code}
                   item_id={item.item_id}
                   b_item={item.b_item}
+                  item_status={item.item_status}
                 />
               )}
               keyExtractor={(item) => item.item_id.toString()}
@@ -138,6 +140,7 @@ function RowItem({
   item_name,
   item_code,
   item_id,
+  item_status,
 }) {
   console.log(b_item);
   // useEffect(() => {
@@ -182,47 +185,49 @@ function RowItem({
   return (
     <Content>
       <List>
-        <ListItem thumbnail>
-          <Left>
-            <Thumbnail square source={{uri: global.images + item_image}} />
-          </Left>
-          <Body>
-            <Text style={{fontWeight: 'bold'}} numberOfLines={1}>
-              {item_name}
-            </Text>
-            <Text note numberOfLines={3}>
-              {item_code}
-            </Text>
-          </Body>
-          <Right>
-            {item_id == b_item && (
-              <Button
-                disabled={true}
-                onPress={() => btnAdd({item_id}, 1)}
-                style={{
-                  //backgroundColor: setBtnDisable(),
-                  backgroundColor: 'grey',
-                  borderRadius: 15,
-                }}
-                labelStyle={{color: 'white', fontSize: 12}}>
-                <Text>add</Text>
-              </Button>
-            )}
-            {item_id != b_item && (
-              <Button
-                disabled={disable}
-                onPress={() => btnAdd({item_id}, 1)}
-                style={{
-                  //backgroundColor: setBtnDisable(),
-                  backgroundColor: btnColor === 1 ? 'grey' : '#800000',
-                  borderRadius: 15,
-                }}
-                labelStyle={{color: 'white', fontSize: 12}}>
-                <Text>add</Text>
-              </Button>
-            )}
-          </Right>
-        </ListItem>
+        {item_status == 1 && (
+          <ListItem thumbnail>
+            <Left>
+              <Thumbnail square source={{uri: global.images + item_image}} />
+            </Left>
+            <Body>
+              <Text style={{fontWeight: 'bold'}} numberOfLines={1}>
+                {item_name}
+              </Text>
+              <Text note numberOfLines={3}>
+                {item_code}
+              </Text>
+            </Body>
+            <Right>
+              {item_id == b_item && (
+                <Button
+                  disabled={true}
+                  onPress={() => btnAdd({item_id}, 1)}
+                  style={{
+                    //backgroundColor: setBtnDisable(),
+                    backgroundColor: 'grey',
+                    borderRadius: 15,
+                  }}
+                  labelStyle={{color: 'white', fontSize: 12}}>
+                  <Text>add</Text>
+                </Button>
+              )}
+              {item_id != b_item && (
+                <Button
+                  disabled={disable}
+                  onPress={() => btnAdd({item_id}, 1)}
+                  style={{
+                    //backgroundColor: setBtnDisable(),
+                    backgroundColor: btnColor === 1 ? 'grey' : '#800000',
+                    borderRadius: 15,
+                  }}
+                  labelStyle={{color: 'white', fontSize: 12}}>
+                  <Text>add</Text>
+                </Button>
+              )}
+            </Right>
+          </ListItem>
+        )}
       </List>
     </Content>
   );

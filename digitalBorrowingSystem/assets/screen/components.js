@@ -68,6 +68,7 @@ export default function Components({navigation, route}) {
             item_code: item.item_code,
             item_id: item.item_id,
             item_qty: item.item_qty,
+            item_status: item.item_status,
           };
         });
         console.log(data);
@@ -117,6 +118,7 @@ export default function Components({navigation, route}) {
                   item_id={item.item_id}
                   b_item={item.b_item}
                   item_qty={item.item_qty}
+                  item_status={item.item_status}
                 />
               )}
               keyExtractor={(item) => item.item_id.toString()}
@@ -138,6 +140,7 @@ function RowItem({
   item_code,
   item_id,
   item_qty,
+  item_status,
 }) {
   // console.log(item_qty);
   var quantiy = item_qty.toString();
@@ -200,45 +203,47 @@ function RowItem({
   return (
     <Content>
       <List>
-        <ListItem thumbnail>
-          <Left>
-            <Thumbnail square source={{uri: global.images + item_image}} />
-          </Left>
-          <Body>
-            <Text style={{fontWeight: 'bold'}}>{item_name}</Text>
-            <Text note numberOfLines={3}>
-              {item_code}
-            </Text>
-          </Body>
-          <Right>
-            <Button
-              onPress={() => btnAdd(item_id)}
-              style={{backgroundColor: '#800000', borderRadius: 0}}
-              labelStyle={{color: 'white', fontSize: 12}}>
-              <Text>+</Text>
-            </Button>
-            <TextInput
-              onChangeText={(text) => setQuantity(text)}
-              value={item_quantity}
-              disabled={true}
-              style={{
-                fontSize: 20,
-                textAlign: 'center',
-                // borderBottomWidth: 1,
-                // borderColor: 'black',
-                width: 62,
-                fontWeight: 'bold',
-                height: 30,
-              }}
-            />
-            <Button
-              onPress={() => btnMinus(item_id)}
-              style={{backgroundColor: 'grey', borderRadius: 0}}
-              labelStyle={{color: 'white', fontSize: 12}}>
-              <Text>-</Text>
-            </Button>
-          </Right>
-        </ListItem>
+        {item_status == 1 && (
+          <ListItem thumbnail>
+            <Left>
+              <Thumbnail square source={{uri: global.images + item_image}} />
+            </Left>
+            <Body>
+              <Text style={{fontWeight: 'bold'}}>{item_name}</Text>
+              <Text note numberOfLines={3}>
+                {item_code}
+              </Text>
+            </Body>
+            <Right>
+              <Button
+                onPress={() => btnAdd(item_id)}
+                style={{backgroundColor: '#800000', borderRadius: 0}}
+                labelStyle={{color: 'white', fontSize: 12}}>
+                <Text>+</Text>
+              </Button>
+              <TextInput
+                onChangeText={(text) => setQuantity(text)}
+                value={item_quantity}
+                disabled={true}
+                style={{
+                  fontSize: 20,
+                  textAlign: 'center',
+                  // borderBottomWidth: 1,
+                  // borderColor: 'black',
+                  width: 62,
+                  fontWeight: 'bold',
+                  height: 30,
+                }}
+              />
+              <Button
+                onPress={() => btnMinus(item_id)}
+                style={{backgroundColor: 'grey', borderRadius: 0}}
+                labelStyle={{color: 'white', fontSize: 12}}>
+                <Text>-</Text>
+              </Button>
+            </Right>
+          </ListItem>
+        )}
       </List>
     </Content>
   );

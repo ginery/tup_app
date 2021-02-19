@@ -16,6 +16,7 @@ import {
   Button,
   Appbar,
   TextInput,
+  Modal,
 } from 'react-native-paper';
 import {
   Card,
@@ -62,7 +63,11 @@ export default function requestForm({navigation, route}) {
     return `0${time}`;
   }
   const dateTime = date + ' ' + time;
-
+  const [visible, setVisible] = React.useState(false);
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const [modalData, setModalData] = useState('');
+  const [modalDataItem, setModalDataItem] = useState('');
   const [confirmBtn, setConfirmBtn] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [teacher_name, setTeacher] = useState('');
@@ -72,7 +77,8 @@ export default function requestForm({navigation, route}) {
   //console.log(confirmBtn);
   useEffect(() => {
     getBorrow();
-  });
+    getTransactionHistory();
+  }, [1]);
 
   function getBorrow() {
     const formData = new FormData();
@@ -87,10 +93,10 @@ export default function requestForm({navigation, route}) {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        var data = responseJson.array_data[0];
+        var data2 = responseJson.array_data[0];
         var data = responseJson.array_data.map(function (item, index) {
           return {
-            count: item.count,
+            ctr: item.ctr,
             item_name: item.item_name,
             item_image: item.item_image,
             item_code: item.item_code,
@@ -100,13 +106,57 @@ export default function requestForm({navigation, route}) {
             b_id: item.b_id,
           };
         });
-        // console.log(data.count);
+        var counter = responseJson.array_data.length;
+        if (counter == 1) {
+          setConfirmBtn(counter);
+        } else {
+          setConfirmBtn(0);
+        }
+        console.log(responseJson.array_data.length);
         setFilteredDataSource(data);
-        setConfirmBtn(data.count);
       })
       .catch((error) => {
         console.error(error);
-        Alert.alert('Internet Connection Error');
+        Alert.alert(error);
+      });
+  }
+
+  function getTransactionHistory() {
+    const formData = new FormData();
+    formData.append('user_id', user_id);
+    fetch(global.global_url + 'getTransactionHistory.php', {
+      method: 'POST',
+      header: {
+        Accept: 'Application/json',
+        'Content-type': 'multipart/form-data',
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        var ref = responseJson.array_data;
+        var data = responseJson.array_data.map(function (item, index) {
+          return {
+            ctr: item.ctr,
+            item_name: item.item_name,
+            item_image: item.item_image,
+            item_code: item.item_code,
+            item_id: item.item_id,
+            item_qty: item.item_qty,
+            bd_id: item.bd_id,
+            b_id: item.b_id,
+          };
+        });
+        console.log(responseJson.array_data[0].ref);
+        var counter = ref.length;
+        if (counter > 0) {
+          setModalData(responseJson.array_data[0].ref);
+        } else {
+          setModalData('');
+        }
+        setModalDataItem(data);
+
+        showModal();
       });
   }
 
@@ -148,7 +198,7 @@ export default function requestForm({navigation, route}) {
     }
   }
   function removeBtn() {
-    console.log('press!');
+    // console.log('press!');
     setShowRemove(true);
   }
   function timeBtn() {
@@ -201,9 +251,7 @@ export default function requestForm({navigation, route}) {
               }}>
               {showRemove != true && (
                 <Button
-                  onPress={() => {
-                    removeBtn();
-                  }}
+                  onPress={() => {}}
                   small
                   style={{
                     backgroundColor: '#a7a7a7',
@@ -356,6 +404,44 @@ export default function requestForm({navigation, route}) {
           </ScrollView>
         </View>
       </View>
+      <Modal
+        visible={visible}
+        onDismiss={hideModal}
+        contentContainerStyle={{
+          backgroundColor: 'white',
+          padding: 20,
+          padding: 10,
+        }}>
+        <View style={{borderColor: 'black', borderWidth: 2, padding: 10}}>
+          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+            Transaction History
+          </Text>
+          <Text>{modalData} </Text>
+          <FlatList
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            scrollEnabled={true}
+            style={{alignContent: 'center', margin: 2}}
+            data={modalDataItem}
+            renderItem={({item}) => (
+              <RowItem
+                user_id={user_id}
+                user_id_number={user_id_number}
+                item_image={item.item_image}
+                item_name={item.item_name}
+                item_code={item.item_code}
+                item_qty={item.item_qty}
+                item_id={item.item_id}
+                bd_id={item.bd_id}
+                b_id={item.b_id}
+                showRemove={showRemove}
+              />
+            )}
+            keyExtractor={(item) => item.bd_id.toString()}
+            // ItemSeparatorComponent={FlatListItemSeparator}
+          />
+        </View>
+      </Modal>
     </PaperProvider>
   );
 }
@@ -371,6 +457,7 @@ function RowItem({
   b_id,
   item_qty,
   showRemove,
+  showModal,
 }) {
   function removeItem(item_id, b_id) {
     const formData = new FormData();
