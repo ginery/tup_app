@@ -117,6 +117,7 @@ export default function Tools({navigation, route}) {
                   item_code={item.item_code}
                   item_id={item.item_id}
                   b_item={item.b_item}
+                  item_status={item.item_status}
                 />
               )}
               keyExtractor={(item) => item.item_id.toString()}

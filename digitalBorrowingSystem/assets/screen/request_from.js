@@ -77,7 +77,6 @@ export default function requestForm({navigation, route}) {
   //console.log(confirmBtn);
   useEffect(() => {
     getBorrow();
-    getTransactionHistory();
   }, [1]);
 
   function getBorrow() {
@@ -187,7 +186,11 @@ export default function requestForm({navigation, route}) {
           var data = responseJson.array_data[0];
           if (data.res == 1) {
             Alert.alert('Confirm Success!!');
-            navigation.goBack();
+
+            getTransactionHistory();
+            setTimeout(() => {
+              navigation.goBack();
+            }, 3000);
           }
           console.log(responseJson);
         })
