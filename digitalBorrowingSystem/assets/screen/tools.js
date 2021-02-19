@@ -67,6 +67,7 @@ export default function Tools({navigation, route}) {
             item_image: item.item_image,
             item_code: item.item_code,
             item_id: item.item_id,
+            item_status: item.item_status,
           };
         });
         console.log(data);
