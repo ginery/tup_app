@@ -107,11 +107,11 @@ export default function requestForm({navigation, route}) {
         });
         var counter = responseJson.array_data.length;
         if (counter > 0) {
-          setConfirmBtn(counter);
+          setConfirmBtn(1);
         } else {
           setConfirmBtn(0);
         }
-        console.log(responseJson.array_data.length);
+        // console.log(responseJson.array_data.length);
         setFilteredDataSource(data);
       })
       .catch((error) => {
@@ -146,7 +146,7 @@ export default function requestForm({navigation, route}) {
             b_id: item.b_id,
           };
         });
-        console.log(responseJson.array_data[0].ref);
+        // console.log(responseJson.array_data[0].ref);
         var counter = ref.length;
         if (counter > 0) {
           setModalData(responseJson.array_data[0].ref);
@@ -185,14 +185,14 @@ export default function requestForm({navigation, route}) {
         .then((responseJson) => {
           var data = responseJson.array_data[0];
           if (data.res == 1) {
-            Alert.alert('Confirm Success!!');
+            // Alert.alert('Confirm Success!!');
 
             getTransactionHistory();
             setTimeout(() => {
               navigation.goBack();
-            }, 3000);
+            }, 4000);
           }
-          console.log(responseJson);
+          console.log(data);
         })
         .catch((error) => {
           console.error(error);
@@ -201,7 +201,7 @@ export default function requestForm({navigation, route}) {
     }
   }
   function removeBtn() {
-    // console.log('press!');
+    console.log('press!');
     setShowRemove(true);
   }
   function timeBtn() {
@@ -254,7 +254,9 @@ export default function requestForm({navigation, route}) {
               }}>
               {showRemove != true && (
                 <Button
-                  onPress={() => {}}
+                  onPress={() => {
+                    removeBtn();
+                  }}
                   small
                   style={{
                     backgroundColor: '#a7a7a7',
