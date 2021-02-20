@@ -106,7 +106,7 @@ export default function requestForm({navigation, route}) {
           };
         });
         var counter = responseJson.array_data.length;
-        if (counter == 1) {
+        if (counter > 0) {
           setConfirmBtn(counter);
         } else {
           setConfirmBtn(0);
