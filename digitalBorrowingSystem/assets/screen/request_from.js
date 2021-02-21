@@ -166,12 +166,7 @@ export default function requestForm({navigation, route}) {
   }
 
   function confirmRequest() {
-    if (
-      !user_id.trim() ||
-      !teacher_name.trim() ||
-      !purpose.trim()
-      // !date_time.trim()
-    ) {
+    if (!teacher_name.trim() || !purpose.trim()) {
       Alert.alert('Please fill up all text box.');
     } else {
       const formData = new FormData();

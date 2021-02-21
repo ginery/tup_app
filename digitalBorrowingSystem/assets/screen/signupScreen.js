@@ -83,7 +83,7 @@ export default function signupScreen({navigation}) {
             });
             //navigation.goBack();
           } else if (data.res == 2) {
-            Alert.alert('User already exist.');
+            Alert.alert('Informations provided already exist.');
           } else {
             Alert.alert('Something went wrong');
           }
