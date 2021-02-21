@@ -59,7 +59,6 @@ export default function Instrument({navigation, route}) {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        var data = responseJson.array_data[0];
         var data = responseJson.array_data.map(function (item, index) {
           return {
             b_item: item.b_item,
@@ -70,7 +69,7 @@ export default function Instrument({navigation, route}) {
             item_status: item.item_status,
           };
         });
-        console.log(data);
+        console.log(responseJson);
         setFilteredDataSource(data);
       })
       .catch((error) => {

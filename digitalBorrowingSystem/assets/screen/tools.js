@@ -59,7 +59,6 @@ export default function Tools({navigation, route}) {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        var data = responseJson.array_data[0];
         var data = responseJson.array_data.map(function (item, index) {
           return {
             b_item: item.b_item,
