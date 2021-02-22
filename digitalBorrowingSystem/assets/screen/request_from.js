@@ -67,6 +67,9 @@ export default function requestForm({navigation, route}) {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const [modalData, setModalData] = useState('');
+  const [th_teacher_name, setTeacherName] = useState('');
+  const [th_date_time_borrowed, setDTB] = useState('');
+  const [th_purpose, setPurposeth] = useState('');
   const [modalDataItem, setModalDataItem] = useState('');
   const [confirmBtn, setConfirmBtn] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -107,7 +110,7 @@ export default function requestForm({navigation, route}) {
         });
         var counter = responseJson.array_data.length;
         if (counter > 0) {
-          setConfirmBtn(true);
+          setConfirmBtn(counter);
         } else {
           setConfirmBtn(false);
         }
@@ -150,6 +153,9 @@ export default function requestForm({navigation, route}) {
         var ctr = ref.length;
         if (ctr > 0) {
           setModalData(responseJson.array_data[0].ref);
+          setTeacherName(responseJson.array_data[0].teacher_name);
+          setDTB(responseJson.array_data[0].date_time_barrowed);
+          setPurposeth(responseJson.array_data[0].purpose);
         } else {
           setModalData('');
         }
@@ -160,12 +166,7 @@ export default function requestForm({navigation, route}) {
   }
 
   function confirmRequest() {
-    if (
-      !user_id.trim() ||
-      !teacher_name.trim() ||
-      !purpose.trim()
-      // !date_time.trim()
-    ) {
+    if (!teacher_name.trim() || !purpose.trim()) {
       Alert.alert('Please fill up all text box.');
     } else {
       const formData = new FormData();
@@ -184,15 +185,15 @@ export default function requestForm({navigation, route}) {
         .then((response) => response.json())
         .then((responseJson) => {
           var data = responseJson.array_data[0];
+          console.log(data);
           if (data.res == 1) {
-            Alert.alert('Confirm Success!!');
+            // Alert.alert('Confirm Success!!');
 
             getTransactionHistory();
             setTimeout(() => {
               navigation.goBack();
-            }, 3000);
+            }, 4000);
           }
-          console.log(responseJson);
         })
         .catch((error) => {
           console.error(error);
@@ -201,7 +202,7 @@ export default function requestForm({navigation, route}) {
     }
   }
   function removeBtn() {
-    // console.log('press!');
+    console.log('press!');
     setShowRemove(true);
   }
   function timeBtn() {
@@ -445,6 +446,15 @@ export default function requestForm({navigation, route}) {
             // ItemSeparatorComponent={FlatListItemSeparator}
           />
         </View>
+        <Text style={{fontSize: 15, fontWeight: 'bold', marginTop: 5}}>
+          Teacher: {th_teacher_name}
+        </Text>
+        <Text style={{fontSize: 15, fontWeight: 'bold', marginTop: 5}}>
+          Purpose: {th_purpose}
+        </Text>
+        <Text style={{fontSize: 15, fontWeight: 'bold', marginTop: 5}}>
+          Date and Time Borrowed: {th_date_time_borrowed}
+        </Text>
       </Modal>
     </PaperProvider>
   );
@@ -539,7 +549,6 @@ function RowItem({
   b_id,
   item_qty,
   showRemove,
-  showModal,
 }) {
   function removeItem(item_id, b_id) {
     const formData = new FormData();

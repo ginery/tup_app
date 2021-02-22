@@ -9,10 +9,22 @@ import Instruments from '../assets/screen/instruments';
 import Components from '../assets/screen/components';
 import Tools from '../assets/screen/tools';
 import Guide from '../assets/screen/guide';
+import SplashScreen from '../assets/screen/splashScreen.js';
+import SplashScreen2 from '../assets/screen/splashScreen2.js';
 const Stack = createStackNavigator();
 const MainStackNavigator = () => {
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="Splash Screen2"
+        component={SplashScreen2}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Splash Screen"
+        component={SplashScreen}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="Login"
         component={Login}

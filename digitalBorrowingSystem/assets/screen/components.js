@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StatusBar,
   FlatList,
+  Alert,
 } from 'react-native';
 import {
   Provider as PaperProvider,

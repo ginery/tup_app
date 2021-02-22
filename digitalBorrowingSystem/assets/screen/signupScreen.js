@@ -62,6 +62,7 @@ export default function signupScreen({navigation}) {
         .then((response) => response.json())
         .then((responseJson) => {
           var data = responseJson.array_data[0];
+          console.log(data.res);
           if (data.res == 1) {
             Alert.alert('Successfull Signed up.');
             setItemStorage('user_details', {
@@ -82,7 +83,7 @@ export default function signupScreen({navigation}) {
             });
             //navigation.goBack();
           } else if (data.res == 2) {
-            Alert.alert('User already exist.');
+            Alert.alert('Informations provided already exist.');
           } else {
             Alert.alert('Something went wrong');
           }
