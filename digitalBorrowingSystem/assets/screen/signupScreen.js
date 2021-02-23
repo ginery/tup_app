@@ -13,10 +13,13 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Provider as PaperProvider, Button} from 'react-native-paper';
+import PushNotification from 'react-native-push-notification';
+
 const width_proportion = '80%';
 const height_proportion = '40%';
 const img_with = '30%';
 export default function signupScreen({navigation}) {
+  useEffect(() => {}, [1]);
   //from sign in and sign up
 
   const setItemStorage = async (key, value) => {
@@ -26,6 +29,8 @@ export default function signupScreen({navigation}) {
       // Error saving data
     }
   };
+  //console.log(idtoken);
+  const [idtoken, setIDToken] = useState('');
   const [name, setName] = useState('');
   const [contact_number, setContactNumber] = useState('');
   const [email, setEmail] = useState('');
@@ -51,6 +56,7 @@ export default function signupScreen({navigation}) {
       formData.append('course_sec', course_sec);
       formData.append('id_number', id_number);
       formData.append('password', password);
+      formData.append('idtoken', idtoken);
       fetch(global.global_url + 'signin.php', {
         method: 'POST',
         headers: {

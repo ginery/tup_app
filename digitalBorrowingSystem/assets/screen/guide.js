@@ -57,66 +57,248 @@ export default function Guide({navigation}) {
                 margin: 20,
                 borderRadius: 15,
               }}>
-              <View>
-                <Title>Sign Up</Title>
+              <View style={{marginBottom: 20}}>
+                <Title style={{fontSize: 25}}>Guide list</Title>
               </View>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Sign up</Text>
-              <Text>
-                Enter your full name, ID number, section, email address, and
-                password to sign up
-              </Text>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>Login</Text>
-              <Text>
-                Login using your ID number and the password you created. Select
-                the category of equipment you want to borrow. Instruments,
-                tools, components
-              </Text>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                Add equipment
-              </Text>
-              <Text>
-                Check the availability of the equipment you want to borrow.
-                Click add to borrow.
-              </Text>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                Complete request form
-              </Text>
-              <Text>
-                You can see the request form on the upper right side of the
-                application. Fill out the teacher’s name, purpose, date and time
-              </Text>
+              <View style={{flexDirection: 'row', marginBottom: 100}}>
+                <TouchableOpacity
+                  style={{
+                    // borderColor: 'black',
+                    // borderWidth: 3,
+                    width: '50%',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                    height: 100,
+                    padding: 10,
+                  }}>
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                    Sign Up
+                  </Text>
+                  <Text style={{color: 'grey', marginLeft: 10}}>
+                    Enter your full name, ID number, section, email address, and
+                    password to sign up
+                  </Text>
+                </TouchableOpacity>
 
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                Submit request form
-              </Text>
-              <Text>Click confirm button to submit the request form.</Text>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                Wait for a notification
-              </Text>
-              <Text>
-                The admin will send you a notification to pick up the equipment
-                you borrowed.
-              </Text>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                Present your ID
-              </Text>
-              <Text>Give your ID to the admin to release your equipment.</Text>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                Return the equipment
-              </Text>
-              <Text>
-                Return the equipment before 5:00 PM of the same day. Failure to
-                return the equipment will block your account from borrowing. You
-                can borrow again after 24 hours from the time you return the
-                equipment.
-              </Text>
-              <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-                Equipment’s Condition
-              </Text>
-              <Text>
-                If the equipment is not in good condition when returned, a
-                written report will be issued to you and your teacher.
-              </Text>
+                <TouchableOpacity
+                  style={{
+                    // borderColor: 'black',
+                    // borderWidth: 3,
+                    width: '50%',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                    height: 100,
+                    padding: 10,
+                  }}>
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}>Login</Text>
+                  <Text style={{color: 'grey', marginLeft: 10}}>
+                    Login using your ID number and the password you created.
+                    Select the category of equipment you want to borrow.
+                    Instruments, tools, components
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  borderBottomColor: 'grey',
+                  borderBottomWidth: 1,
+                }}></View>
+              <View style={{flexDirection: 'row', marginBottom: 100}}>
+                <TouchableOpacity
+                  style={{
+                    // borderColor: 'black',
+                    // borderWidth: 3,
+                    width: '50%',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                    height: 100,
+                    padding: 10,
+                  }}>
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                    Add Equipment
+                  </Text>
+                  <Text style={{color: 'grey', marginLeft: 10}}>
+                    Check the availability of the equipment you want to borrow.
+                    Click add to borrow.
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={{
+                    // borderColor: 'black',
+                    // borderWidth: 3,
+                    width: '50%',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                    height: 100,
+                    padding: 10,
+                  }}>
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                    Complete request form
+                  </Text>
+                  <Text style={{color: 'grey', marginLeft: 10}}>
+                    You can see the request form on the upper right side of the
+                    application. Fill out the teacher’s name, purpose, date and
+                    time
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  borderBottomColor: 'grey',
+                  borderBottomWidth: 1,
+                }}></View>
+              <View style={{flexDirection: 'row', marginBottom: 100}}>
+                <TouchableOpacity
+                  style={{
+                    // borderColor: 'black',
+                    // borderWidth: 3,
+                    width: '50%',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                    height: 100,
+                    padding: 10,
+                  }}>
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                    Submit request form
+                  </Text>
+                  <Text style={{color: 'grey', marginLeft: 10}}>
+                    Click confirm button to submit the request form.
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={{
+                    // borderColor: 'black',
+                    // borderWidth: 3,
+                    width: '50%',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                    height: 100,
+                    padding: 10,
+                  }}>
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                    Wait for a notification
+                  </Text>
+                  <Text style={{color: 'grey', marginLeft: 10}}>
+                    The admin will send you a notification to pick up the
+                    equipment you borrowed.
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  borderBottomColor: 'grey',
+                  borderBottomWidth: 1,
+                }}></View>
+              <View style={{flexDirection: 'row', marginBottom: 200}}>
+                <TouchableOpacity
+                  style={{
+                    // borderColor: 'black',
+                    // borderWidth: 3,
+                    width: '50%',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                    height: 100,
+                    padding: 10,
+                  }}>
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                    Present your ID
+                  </Text>
+                  <Text style={{color: 'grey', marginLeft: 10}}>
+                    Give your ID to the admin to release your equipment.
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={{
+                    // borderColor: 'black',
+                    // borderWidth: 3,
+                    width: '50%',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                    height: 100,
+                    padding: 10,
+                  }}>
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                    Return the equipment
+                  </Text>
+                  <Text style={{color: 'grey', marginLeft: 10}}>
+                    Return the equipment before 5:00 PM of the same day. Failure
+                    to return the equipment will block your account from
+                    borrowing. You can borrow again after 24 hours from the time
+                    you return the equipment.
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  borderBottomColor: 'grey',
+                  borderBottomWidth: 1,
+                }}></View>
+              <View style={{flexDirection: 'row', marginBottom: 100}}>
+                <TouchableOpacity
+                  style={{
+                    // borderColor: 'black',
+                    // borderWidth: 3,
+                    width: '50%',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                    height: 100,
+                    padding: 10,
+                  }}>
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                    Submit request form
+                  </Text>
+                  <Text style={{color: 'grey', marginLeft: 10}}>
+                    Click confirm button to submit the request form.
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={{
+                    // borderColor: 'black',
+                    // borderWidth: 3,
+                    width: '50%',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                    height: 100,
+                    padding: 10,
+                  }}>
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                    Wait for a notification
+                  </Text>
+                  <Text style={{color: 'grey', marginLeft: 10}}>
+                    The admin will send you a notification to pick up the
+                    equipment you borrowed.
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  borderBottomColor: 'grey',
+                  borderBottomWidth: 1,
+                }}></View>
+              <View style={{flexDirection: 'row', marginBottom: 160}}>
+                <TouchableOpacity
+                  style={{
+                    // borderColor: 'black',
+                    // borderWidth: 3,
+                    width: '50%',
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                    height: 100,
+                    padding: 10,
+                  }}>
+                  <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                    Equipment’s Condition
+                  </Text>
+                  <Text style={{color: 'grey', marginLeft: 10}}>
+                    If the equipment is not in good condition when returned, a
+                    written report will be issued to you and your teacher.
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </ScrollView>
         </View>

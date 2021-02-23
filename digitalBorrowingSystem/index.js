@@ -1,23 +1,50 @@
 /**
  * @format
  */
-
-import {AppRegistry} from 'react-native';
+// import React, {useState, useEffect} from 'react';
+import {Alert, AppRegistry, useContext} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import PushNotification from 'react-native-push-notification';
-
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import {useFocusEffect} from '@react-navigation/native';
 // Must be outside of any component LifeCycle (such as `componentDidMount`).
+// useFocusEffect(
+//   React.useCallback(() => {
+//     retrieveData();
+//     return () => retrieveData();
+//   }),
+// );
+// const retrieveData = async () => {
+//   try {
+//     const valueString = await AsyncStorage.getItem('user_details');
+//     const value = JSON.parse(valueString);
+//     console.log(value);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+// const setItemStorage = async (key, value) => {
+//   try {
+//     await AsyncStorage.setItem(key, JSON.stringify(value));
+//   } catch (error) {
+//     // Error saving data
+//   }
+// };
 PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)
   onRegister: function (token) {
     console.log('TOKEN:', token);
+    // setItemStorage('idtoken', {
+    //   idtoken: token,
+    // });
   },
 
   // (required) Called when a remote is received or opened, or local notification is opened
   onNotification: function (notification) {
     console.log('NOTIFICATION:', notification);
+    Alert.alert(notification.message);
 
     // process the notification
 
@@ -29,7 +56,7 @@ PushNotification.configure({
   onAction: function (notification) {
     console.log('ACTION:', notification.action);
     console.log('NOTIFICATION:', notification);
-
+    Alert.alert('test');
     // process the action
   },
 
