@@ -15,11 +15,20 @@ import {
   Button,
   Appbar,
 } from 'react-native-paper';
+import {useFocusEffect} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //for height of wrapper text info
 const width_proportion = '90%';
 const btn_wrapper = '45%';
 const img_width = '100%';
 export default function homeScreen({navigation, route}) {
+  useFocusEffect(
+    React.useCallback(() => {
+      retrieveData();
+      return () => retrieveData();
+    }),
+  );
+
   //form sign in and log in
   const {
     user_id,
@@ -29,6 +38,33 @@ export default function homeScreen({navigation, route}) {
     user_course_sec,
     user_id_number,
   } = route.params;
+  const retrieveData = async () => {
+    try {
+      const valueString = await AsyncStorage.getItem('IDToken');
+      const value = JSON.parse(valueString);
+      if (value) {
+        //console.log(value.idtoken);
+        var idtoken = value.idtoken;
+        const formData = new FormData();
+        formData.append('user_id', user_id);
+        formData.append('idtoken', idtoken);
+        fetch(global.global_url + 'getIdToken.php', {
+          method: 'POST',
+          header: {
+            Accept: 'application/json',
+            'Content-Type': 'multipart/form-data',
+          },
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((ResponseJson) => {
+            console.log(ResponseJson);
+          });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     console.log('ISTOP!!!');
   }, [1]);
