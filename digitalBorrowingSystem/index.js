@@ -23,7 +23,7 @@ PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)
   onRegister: function (token) {
     console.log('TOKEN:', token);
-    Alert.alert(token.token);
+    //Alert.alert(token.token);
     var iidToken = token.token;
     setItemStorage('IDToken', {
       idtoken: iidToken,
