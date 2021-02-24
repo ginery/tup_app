@@ -214,6 +214,7 @@ function RowItem({
               <Text note numberOfLines={3}>
                 {item_code}
               </Text>
+              <Text>{item_qty}</Text>
             </Body>
             <Right>
               <Button
