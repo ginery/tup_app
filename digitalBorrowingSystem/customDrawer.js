@@ -44,7 +44,7 @@ function Sidebar({...props}) {
     }
   };
   function signOut() {
-    AsyncStorage.removeItem('user_details');
+    AsyncStorage.clear();
   }
   return (
     <Container>
