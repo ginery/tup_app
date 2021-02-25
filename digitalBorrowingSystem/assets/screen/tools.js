@@ -152,11 +152,12 @@ function RowItem({
 
   // const [btnOnload, setBtnOnload] = React.useState(false);
   const [btnColor, setColorBtn] = React.useState('');
-  const [disable, setDisable] = React.useState(false);
-
+  const [disable, setDisable] = React.useState(0);
+  const btnCancel = () => {
+    Alert.alert('test');
+  };
   const btnAdd = (id, status) => {
     setColorBtn(status);
-    setDisable(true);
 
     const formData = new FormData();
     formData.append('user_id', user_id);
@@ -200,15 +201,15 @@ function RowItem({
             <Right>
               {item_id == b_item && (
                 <Button
-                  disabled={true}
-                  onPress={() => btnAdd({item_id}, 1)}
+                  // disabled={true}
+                  onPress={() => btnCancel({item_id}, 0)}
                   style={{
                     //backgroundColor: setBtnDisable(),
                     backgroundColor: 'grey',
                     borderRadius: 15,
                   }}
                   labelStyle={{color: 'white', fontSize: 12}}>
-                  <Text>add</Text>
+                  <Text>Cancel</Text>
                 </Button>
               )}
               {item_id != b_item && (
