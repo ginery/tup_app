@@ -9,6 +9,7 @@ import Instruments from '../assets/screen/instruments';
 import Components from '../assets/screen/components';
 import Tools from '../assets/screen/tools';
 import Guide from '../assets/screen/guide';
+import About from '../assets/screen/about';
 import SplashScreen from '../assets/screen/splashScreen.js';
 import SplashScreen2 from '../assets/screen/splashScreen2.js';
 const Stack = createStackNavigator();
@@ -80,5 +81,16 @@ const AccountDetailsStack = () => {
     </Stack.Navigator>
   );
 };
+const AboutStact = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="About"
+        component={About}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  );
+};
 // for you are using nested stack with drawer stack navigation should be export not export default
-export {MainStackNavigator, AccountDetailsStack};
+export {MainStackNavigator, AccountDetailsStack, AboutStact};

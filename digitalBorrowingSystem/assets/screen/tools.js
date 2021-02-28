@@ -44,7 +44,7 @@ export default function Tools({navigation, route}) {
   useEffect(() => {
     //retrieveData();
     get_tools();
-  }, [1]);
+  });
 
   function get_tools() {
     const formData = new FormData();
@@ -161,7 +161,7 @@ function RowItem({
     formData.append('item_id', item_id);
     formData.append('qty', 1);
 
-    fetch(global.global_url + 'removeItem.php', {
+    fetch(global.global_url + 'cancelItem.php', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -227,38 +227,33 @@ function RowItem({
               </Text>
             </Body>
             <Right>
-              {
-                // item_id == b_item
-                btnShow == 0 && (
-                  <Button
-                    // disabled={true}
-                    onPress={() => btnCancel({item_id}, 0)}
-                    style={{
-                      //backgroundColor: setBtnDisable(),
-                      backgroundColor: 'grey',
-                      borderRadius: 15,
-                    }}
-                    labelStyle={{color: 'white', fontSize: 12}}>
-                    <Text>Cancel</Text>
-                  </Button>
-                )
-              }
-              {
-                // item_id != b_item
-                btnShow == 1 && (
-                  <Button
-                    disabled={disable}
-                    onPress={() => btnAdd({item_id}, 1)}
-                    style={{
-                      //backgroundColor: setBtnDisable(),
-                      backgroundColor: '#800000',
-                      borderRadius: 15,
-                    }}
-                    labelStyle={{color: 'white', fontSize: 12}}>
-                    <Text>add</Text>
-                  </Button>
-                )
-              }
+              {item_id == b_item && (
+                // btnShow == 0
+                <Button
+                  // disabled={true}
+                  onPress={() => btnCancel({item_id}, 0)}
+                  style={{
+                    //backgroundColor: setBtnDisable(),
+                    backgroundColor: 'grey',
+                    borderRadius: 15,
+                  }}
+                  labelStyle={{color: 'white', fontSize: 12}}>
+                  <Text>Cancel</Text>
+                </Button>
+              )}
+              {item_id != b_item && (
+                // btnShow == 1
+                <Button
+                  onPress={() => btnAdd({item_id}, 1)}
+                  style={{
+                    //backgroundColor: setBtnDisable(),
+                    backgroundColor: '#800000',
+                    borderRadius: 15,
+                  }}
+                  labelStyle={{color: 'white', fontSize: 12}}>
+                  <Text>add</Text>
+                </Button>
+              )}
             </Right>
           </ListItem>
         )}

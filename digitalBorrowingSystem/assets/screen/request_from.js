@@ -77,10 +77,10 @@ export default function requestForm({navigation, route}) {
   const [purpose, setPurpose] = useState('');
   const [date_time, setDate_Time] = useState('');
   const [showRemove, setShowRemove] = useState('');
-  // console.log(confirmBtn);
+  console.log(showRemove);
   useEffect(() => {
     getBorrow();
-  });
+  }, [1]);
 
   function getBorrow() {
     const formData = new FormData();
@@ -110,7 +110,7 @@ export default function requestForm({navigation, route}) {
         });
         var counter = responseJson.array_data.length;
         if (counter > 0) {
-          setConfirmBtn(counter);
+          setConfirmBtn(true);
         } else {
           setConfirmBtn(false);
         }
@@ -190,9 +190,9 @@ export default function requestForm({navigation, route}) {
             // Alert.alert('Confirm Success!!');
 
             getTransactionHistory();
-            setTimeout(() => {
-              navigation.goBack();
-            }, 4000);
+            // setTimeout(() => {
+            //   navigation.goBack();
+            // }, 4000);
           }
         })
         .catch((error) => {
@@ -207,6 +207,9 @@ export default function requestForm({navigation, route}) {
   }
   function timeBtn() {
     setShowRemove(false);
+  }
+  function btnOkay() {
+    navigation.goBack();
   }
   return (
     <PaperProvider>
@@ -455,6 +458,12 @@ export default function requestForm({navigation, route}) {
         <Text style={{fontSize: 15, fontWeight: 'bold', marginTop: 5}}>
           Date and Time Borrowed: {th_date_time_borrowed}
         </Text>
+        <Button
+          onPress={() => {
+            btnOkay();
+          }}>
+          Okay
+        </Button>
       </Modal>
     </PaperProvider>
   );
@@ -507,31 +516,13 @@ function RowItem1({
             <Thumbnail square source={{uri: global.images + item_image}} />
           </Left>
           <Body>
-            <Text>
-              {item_name} {showRemove}
-            </Text>
+            <Text>{item_name}</Text>
             <Text note numberOfLines={1}>
               {item_code}
             </Text>
           </Body>
           <Right>
-            {showRemove == true && (
-              <Button
-                onPress={() => {
-                  removeItem(item_id, b_id);
-                }}
-                style={{
-                  //backgroundColor: setBtnDisable(),
-                  backgroundColor: '#f44336',
-                  borderRadius: 15,
-                }}
-                labelStyle={{color: 'white', fontSize: 12}}>
-                <Text>
-                  <Icon name="trash" />
-                </Text>
-              </Button>
-            )}
-            {showRemove != true && <Text>x{item_qty}</Text>}
+            <Text>x{item_qty}</Text>
           </Right>
         </ListItem>
       </List>

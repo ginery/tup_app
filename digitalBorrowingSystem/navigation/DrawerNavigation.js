@@ -1,7 +1,11 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {Icon} from 'native-base';
-import {MainStackNavigator, AccountDetailsStack} from './StackNavigation';
+import {
+  MainStackNavigator,
+  AccountDetailsStack,
+  AboutStact,
+} from './StackNavigation';
 import Sidebar from '../customDrawer';
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => {
@@ -27,6 +31,18 @@ const DrawerNavigator = () => {
         }}
         name="Account Details"
         component={AccountDetailsStack}
+      />
+      <Drawer.Screen
+        options={{
+          drawerIcon: (config) => (
+            <Icon
+              size={15}
+              name="information-circle-outline"
+              style={{color: '#a7a7a7'}}></Icon>
+          ),
+        }}
+        name="About"
+        component={AboutStact}
       />
     </Drawer.Navigator>
   );
