@@ -44,7 +44,7 @@ export default function Tools({navigation, route}) {
   useEffect(() => {
     //retrieveData();
     get_tools();
-  });
+  }, [1]);
 
   function get_tools() {
     const formData = new FormData();
