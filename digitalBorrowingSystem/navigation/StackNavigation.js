@@ -12,11 +12,12 @@ import Guide from '../assets/screen/guide';
 import About from '../assets/screen/about';
 import SplashScreen from '../assets/screen/splashScreen.js';
 import SplashScreen2 from '../assets/screen/splashScreen2.js';
+import TransactionHistory from '../assets/screen/transactionHistory';
 const Stack = createStackNavigator();
 const MainStackNavigator = () => {
   return (
     <Stack.Navigator>
-      {/* <Stack.Screen
+      <Stack.Screen
         name="Splash Screen2"
         component={SplashScreen2}
         options={{headerShown: false}}
@@ -25,7 +26,7 @@ const MainStackNavigator = () => {
         name="Splash Screen"
         component={SplashScreen}
         options={{headerShown: false}}
-      /> */}
+      />
       <Stack.Screen
         name="Login"
         component={Login}
@@ -44,6 +45,11 @@ const MainStackNavigator = () => {
       <Stack.Screen
         name="Request Form"
         component={RequestForm}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Transaction History"
+        component={TransactionHistory}
         options={{headerShown: false}}
       />
       <Stack.Screen

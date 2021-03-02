@@ -45,7 +45,7 @@ export default function Components({navigation, route}) {
   useEffect(() => {
     //retrieveData();
     get_components();
-  });
+  }, [1]);
 
   function get_components() {
     const formData = new FormData();
@@ -147,30 +147,36 @@ function RowItem({
   var quantiy = item_qty.toString();
   const [item_quantity, setQuantity] = useState(quantiy);
   function btnAdd(i_id) {
+    // console.log(parseInt(item_quantity) + 1);
     var add = parseInt(item_quantity) + 1;
-    setQuantity(add.toString());
 
-    const formData = new FormData();
-    formData.append('user_id', user_id);
-    formData.append('item_id', i_id);
-    formData.append('qty', 1);
+    if (add != 31) {
+      setQuantity(add.toString());
 
-    fetch(global.global_url + 'borrow_components.php', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-      },
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson);
+      const formData = new FormData();
+      formData.append('user_id', user_id);
+      formData.append('item_id', i_id);
+      formData.append('qty', 1);
+
+      fetch(global.global_url + 'borrow_components.php', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data',
+        },
+        body: formData,
       })
-      .catch((error) => {
-        console.error(error);
-        Alert.alert('Internet Connection Error');
-      });
+        .then((response) => response.json())
+        .then((responseJson) => {
+          // console.log(responseJson);
+        })
+        .catch((error) => {
+          console.error(error);
+          Alert.alert('Internet Connection Error');
+        });
+    } else {
+      Alert.alert('You already reach the maximum quantity to borrow');
+    }
   }
   function btnMinus(i_id) {
     if (parseInt(item_quantity) == 0) {
@@ -214,7 +220,6 @@ function RowItem({
               <Text note numberOfLines={3}>
                 {item_code}
               </Text>
-              <Text>{item_qty}</Text>
             </Body>
             <Right>
               <Button
