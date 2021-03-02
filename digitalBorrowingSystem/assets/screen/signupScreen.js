@@ -14,12 +14,17 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Provider as PaperProvider, Button} from 'react-native-paper';
 import PushNotification from 'react-native-push-notification';
-
+import {useFocusEffect} from '@react-navigation/native';
 const width_proportion = '80%';
 const height_proportion = '40%';
 const img_with = '30%';
 export default function signupScreen({navigation}) {
-  useEffect(() => {}, [1]);
+  useFocusEffect(
+    React.useCallback(() => {
+      retrieveData();
+      return () => retrieveData();
+    }),
+  );
   //from sign in and sign up
 
   const setItemStorage = async (key, value) => {
@@ -27,6 +32,27 @@ export default function signupScreen({navigation}) {
       await AsyncStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
       // Error saving data
+    }
+  };
+  const retrieveData = async () => {
+    try {
+      const valueString = await AsyncStorage.getItem('user_details');
+      const value = JSON.parse(valueString);
+      if (valueString == null || valueString == '') {
+        console.log('empty');
+      } else {
+        console.log('with value');
+        navigation.navigate('Home Screen', {
+          user_id: value.user_id,
+          user_name: value.user_name,
+          user_contact: value.user_contact,
+          user_email: value.user_email,
+          user_course_sec: value.user_course_sec,
+          user_id_number: value.user_id_number,
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   //console.log(idtoken);
