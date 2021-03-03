@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "768057974677",
-    "project_id": "digitalborrowingsystem-c5d53",
-    "storage_bucket": "digitalborrowingsystem-c5d53.appspot.com"
+    "project_number": "590393962557",
+    "project_id": "digitalborrowingsystem-a2c1f",
+    "storage_bucket": "digitalborrowingsystem-a2c1f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:768057974677:android:4c410134d78b1d4000609c",
+        "mobilesdk_app_id": "1:590393962557:android:3e144f36195cf8bd487a54",
         "android_client_info": {
           "package_name": "com.digitalborrowingsystem"
         }
       },
       "oauth_client": [
         {
-          "client_id": "768057974677-nfs0lafuondrgs6ultdrdquks8g79v8v.apps.googleusercontent.com",
+          "client_id": "590393962557-un04tevudcuj45f0rkdoibdjs8b0l0aa.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCKhObrH-iCA62izHiWyzmd25KZME5LgQM"
+          "current_key": "AIzaSyDiljOjiozmLJXSy7Tz-YePr8WCwGXlgz8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "768057974677-nfs0lafuondrgs6ultdrdquks8g79v8v.apps.googleusercontent.com",
+              "client_id": "590393962557-un04tevudcuj45f0rkdoibdjs8b0l0aa.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
