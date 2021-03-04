@@ -11,6 +11,36 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
 // Must be outside of any component LifeCycle (such as `componentDidMount`).
 
+// var today = new Date();
+// var time =
+//   makeTwoDigits(today.getHours()) +
+//   ':' +
+//   makeTwoDigits(today.getMinutes()) +
+//   ':' +
+//   makeTwoDigits(today.getSeconds());
+// /// make date and time 2 digit
+// function makeTwoDigits(time) {
+//   const timeString = `${time}`;
+//   if (timeString.length === 2) return time;
+//   return `0${time}`;
+// }
+// var hms = '02:59:33'; // your input string
+// var a = hms.split(':'); // split it at the colons
+
+// // minutes are worth 60 seconds. Hours are worth 60 minutes.
+// var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+var now = new Date();
+now.setDate(now.getDate());
+now.setHours(15);
+now.setMinutes(45);
+now.setMilliseconds(0);
+console.log(now + '-----' + new Date(Date.now() + 3 * 1000));
+PushNotification.localNotificationSchedule({
+  //... You can use all the options from localNotifications
+  message: 'My Notification Message', // (required)
+  date: now, // in 60 secs
+  allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
+});
 const setItemStorage = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, JSON.stringify(value));
@@ -23,7 +53,7 @@ PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)
   onRegister: function (token) {
     console.log('REGISTER TOKEN:', token);
-    Alert.alert(token.token);
+    //Alert.alert(token.token);
     var iidToken = token.token;
     setItemStorage('IDToken', {
       idtoken: iidToken,
@@ -75,4 +105,5 @@ PushNotification.configure({
    */
   requestPermissions: true,
 });
+
 AppRegistry.registerComponent(appName, () => App);

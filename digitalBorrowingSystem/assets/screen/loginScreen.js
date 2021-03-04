@@ -13,6 +13,8 @@ import {
 import {Provider as PaperProvider, TextInput, Button} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
+import PushNotification from 'react-native-push-notification';
+
 //for height of wrapper text info
 const width_proportion = '80%';
 const height_proportion = '40%';
@@ -32,6 +34,7 @@ export default function loginScreen({navigation}) {
         console.log('empty');
       } else {
         console.log('with value');
+
         navigation.navigate('Home Screen', {
           user_id: value.user_id,
           user_name: value.user_name,
