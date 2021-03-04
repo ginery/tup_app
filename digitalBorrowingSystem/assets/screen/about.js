@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   StatusBar,
   Alert,
+  ImageBackground,
 } from 'react-native';
 import {
   Provider as PaperProvider,
@@ -19,6 +20,8 @@ import {
 import {Card, Container, Content, Left, Thumbnail} from 'native-base';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function About({navigation}) {
+  const image = require('../images/a1.png');
+
   return (
     <>
       {/* <StatusBar barStyle="dark-content" /> */}
@@ -27,27 +30,14 @@ export default function About({navigation}) {
         <View style={styles.wrapper}>
           <Appbar style={styles.bottom}>
             <Appbar.Action
-              icon="menu"
+              icon="arrow-left-circle"
               style={{marginRight: 'auto'}}
-              onPress={() => navigation.openDrawer()}
-            />
-            <Appbar.Action
-              icon="clipboard"
-              style={{marginLeft: 'auto'}}
-              onPress={() =>
-                navigation.navigate('Request Form', {
-                  user_id: user_id,
-                  user_name: user_name,
-                  user_contact: user_contact,
-                  user_email: user_email,
-                  user_course_sec: user_course_sec,
-                  user_id_number: user_id_number,
-                })
-              }
+              onPress={() => navigation.goBack()}
             />
           </Appbar>
-
-          <Text>test</Text>
+          <ImageBackground source={image} style={styles.image}>
+            <Text>Inside</Text>
+          </ImageBackground>
         </View>
       </PaperProvider>
     </>
@@ -60,6 +50,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
+    width: '100%',
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
     width: '100%',
   },
   textInputWrapper: {
