@@ -71,7 +71,7 @@ export default function homeScreen({navigation, route}) {
       })
       .catch((error) => {
         console.error(error);
-        Alert.alert('Internet Connection Error656545');
+        Alert.alert('Internet Connection Error');
       });
   }
   function schedNotif() {
