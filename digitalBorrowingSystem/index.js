@@ -29,18 +29,18 @@ import {useFocusEffect} from '@react-navigation/native';
 
 // // minutes are worth 60 seconds. Hours are worth 60 minutes.
 // var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
-var now = new Date();
-now.setDate(now.getDate());
-now.setHours(15);
-now.setMinutes(45);
-now.setMilliseconds(0);
-console.log(now + '-----' + new Date(Date.now() + 3 * 1000));
-PushNotification.localNotificationSchedule({
-  //... You can use all the options from localNotifications
-  message: 'My Notification Message', // (required)
-  date: now, // in 60 secs
-  allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
-});
+// var now = new Date();
+// now.setDate(now.getDate());
+// now.setHours(15);
+// now.setMinutes(45);
+// now.setMilliseconds(0);
+// console.log(now + '-----' + new Date(Date.now() + 3 * 1000));
+// PushNotification.localNotificationSchedule({
+//   //... You can use all the options from localNotifications
+//   message: 'My Notification Message', // (required)
+//   date: now, // in 60 secs
+//   allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
+// });
 const setItemStorage = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, JSON.stringify(value));

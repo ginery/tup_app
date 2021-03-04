@@ -34,7 +34,6 @@ export default function loginScreen({navigation}) {
         console.log('empty');
       } else {
         console.log('with value');
-
         navigation.navigate('Home Screen', {
           user_id: value.user_id,
           user_name: value.user_name,
@@ -57,6 +56,7 @@ export default function loginScreen({navigation}) {
   };
   const [id_number, setIDNumber] = useState('');
   const [password, setPassword] = useState('');
+  console.log(id_number);
   function login() {
     //Alert.alert('test');
     if (!id_number.trim() || !password.trim()) {
@@ -98,6 +98,8 @@ export default function loginScreen({navigation}) {
               user_id_number: data.id_number,
             });
             //navigation.goBack();
+          } else if (data.res == 2) {
+            Alert.alert('Account revoked! You should return the items first.');
           } else {
             Alert.alert('Wrong credentials');
           }

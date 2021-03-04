@@ -18,18 +18,19 @@ import {
 } from 'react-native-paper';
 import {useFocusEffect} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PushNotification from 'react-native-push-notification';
 //for height of wrapper text info
 const width_proportion = '90%';
 const btn_wrapper = '45%';
 const img_width = '100%';
 export default function homeScreen({navigation, route}) {
-  useEffect(() => {
-    checkReturn();
-  });
+  // useEffect(() => {
+
+  // });
   useFocusEffect(
     React.useCallback(() => {
       retrieveData();
-
+      checkReturn();
       return () => retrieveData();
     }),
   );
@@ -43,47 +44,34 @@ export default function homeScreen({navigation, route}) {
     user_course_sec,
     user_id_number,
   } = route.params;
-  var today = new Date();
-  var time =
-    makeTwoDigits(today.getHours()) +
-    ':' +
-    makeTwoDigits(today.getMinutes()) +
-    ':' +
-    makeTwoDigits(today.getSeconds());
-  /// make date and time 2 digit
-  function makeTwoDigits(time) {
-    const timeString = `${time}`;
-    if (timeString.length === 2) return time;
-    return `0${time}`;
-  }
-
   function checkReturn() {
-    const formdata = new FormData();
-    formdata.append('user_id', user_id);
+    //Alert.alert('test');
+    const formData = new FormData();
+    formData.append('user_id', user_id);
     fetch(global.global_url + 'checkReturn.php', {
       method: 'POST',
       header: {
         Accept: 'application/json',
         'Content-Type': 'multipart/form-data',
       },
-      body: formdata,
+      body: formData,
     })
       .then((response) => response.json())
       .then((ResponseJson) => {
         var data = ResponseJson.array_data[0];
-        //console.log(data.res);
+        console.log(data.res);
         if (data.res == 1) {
-          // Alert.alert(
-          //   'The items you borrow should return first to revoke your account.',
-          // );
-          // AsyncStorage.clear();
-          // navigation.goBack();
+          Alert.alert(
+            'The items you borrow should return first to revoke your account.',
+          );
+          AsyncStorage.clear();
+          navigation.navigate('Login');
           schedNotif();
         }
       })
       .catch((error) => {
         console.error(error);
-        Alert.alert('Internet Connection Error');
+        Alert.alert('Internet Connection Error656545');
       });
   }
   function schedNotif() {
@@ -102,16 +90,19 @@ export default function homeScreen({navigation, route}) {
         var data = ResponseJson.array_data[0];
         console.log(data.res);
         if (data.res == 1) {
-          // console.log(time);
-          // if (time == '14:45:00') {
-          //   Alert.alert('times up!');
-          // }
-          // PushNotification.localNotificationSchedule({
-          //   //... You can use all the options from localNotifications
-          //   message: 'My Notification Message', // (required)
-          //   date: new Date(Date.now() + 3 * 1000), // in 60 secs
-          //   allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
-          // });
+          var now = new Date();
+          now.setDate(now.getDate());
+          now.setHours(16);
+          now.setMinutes(30);
+          now.setMilliseconds(0);
+          // console.log(now + '-----' + new Date(Date.now() + 3 * 1000));
+          PushNotification.localNotificationSchedule({
+            //... You can use all the options from localNotifications
+            message:
+              'You have 30 minutes to return the item before your account will be revoke.', // (required)
+            date: now, // in 60 secs
+            allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
+          });
         }
       })
       .catch((error) => {
