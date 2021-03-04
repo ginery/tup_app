@@ -19,25 +19,11 @@ const setItemStorage = async (key, value) => {
   }
 };
 
-PushNotification.createChannel(
-  {
-    channelId: 'digitalborrowingsystem-a2c1f', // (required)
-    channelName: 'digitalBorrowingSystem', // (required)
-    channelDescription: 'A channel to categorise your notifications', // (optional) default: undefined.
-    playSound: false, // (optional) default: true
-    soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
-    importance: 4, // (optional) default: 4. Int value of the Android notification importance
-    vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
-  },
-  (created) => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
-);
-
 PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)
   onRegister: function (token) {
     console.log('REGISTER TOKEN:', token);
-
-    // Alert.alert(token.token);
+    Alert.alert(token.token);
     var iidToken = token.token;
     setItemStorage('IDToken', {
       idtoken: iidToken,
@@ -68,7 +54,7 @@ PushNotification.configure({
   onRegistrationError: function (err) {
     console.error(err.message, err);
   },
-  senderID: '590393962557',
+
   // IOS ONLY (optional): default: all - Permissions to register.
   permissions: {
     alert: true,
