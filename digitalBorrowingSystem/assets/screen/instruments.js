@@ -61,6 +61,7 @@ export default function Instrument({navigation, route}) {
       .then((responseJson) => {
         var data = responseJson.array_data.map(function (item, index) {
           return {
+            borrow_item: item.borrow_item,
             b_item: item.b_item,
             item_name: item.item_name,
             item_image: item.item_image,
@@ -117,6 +118,7 @@ export default function Instrument({navigation, route}) {
                   item_code={item.item_code}
                   item_id={item.item_id}
                   b_item={item.b_item}
+                  borrow_item={item.borrow_item}
                   item_status={item.item_status}
                 />
               )}
@@ -140,8 +142,9 @@ function RowItem({
   item_code,
   item_id,
   item_status,
+  borrow_item,
 }) {
-  console.log(b_item);
+  console.log(borrow_item);
   // useEffect(() => {
   //   if (status == 0) {
   //     setBtnOnload(true);
@@ -240,14 +243,16 @@ function RowItem({
               )}
               {item_id != b_item && (
                 <Button
+                  disabled={borrow_item == 0 ? false : true}
                   onPress={() => btnAdd({item_id}, 1)}
                   style={{
                     //backgroundColor: setBtnDisable(),
-                    backgroundColor: '#800000',
+                    backgroundColor: borrow_item == 0 ? '#800000' : 'grey',
                     borderRadius: 15,
                   }}
                   labelStyle={{color: 'white', fontSize: 12}}>
-                  <Text>add</Text>
+                  {borrow_item == 0 && <Text>add</Text>}
+                  {borrow_item == 1 && <Text>N/A</Text>}
                 </Button>
               )}
             </Right>

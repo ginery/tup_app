@@ -5,6 +5,8 @@ export default function App() {
   useEffect(() => {
     global.global_url = 'http://192.168.2.106/tup-dbs/app/';
     global.images = 'http://192.168.2.106/tup-dbs/assets/items/';
+    // global.global_url = 'https://gecmath.com/tup-dbs/app/';
+    // global.images = 'https://gecmath.com/tup-dbs/assets/items/';
   });
   return (
     <NavigationContainer>
