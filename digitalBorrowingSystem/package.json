@@ -20,6 +20,7 @@
     "native-base": "^2.15.2",
     "react": "16.13.1",
     "react-native": "0.63.4",
+    "react-native-app-intro-slider": "^4.0.4",
     "react-native-build-config": "^0.3.2",
     "react-native-counter-input": "^0.1.9",
     "react-native-counters": "^1.2.0",
