@@ -32,12 +32,12 @@ export default function About({navigation}) {
     {
       id: 2,
       text: 'This photo is of Austria.\nBy @8moments',
-      image: require('../images/a2.png'),
+      image: require('../images/a6.jpg'),
     },
     {
       id: 3,
       text: 'This photo is of Iceland.\nBy @r3dmax',
-      image: require('../images/a3.png'),
+      image: require('../images/a5.png'),
     },
     {
       id: 4,
@@ -47,17 +47,17 @@ export default function About({navigation}) {
     {
       id: 5,
       text: 'This photo is of Iceland.\nBy @r3dmax',
-      image: require('../images/a5.png'),
+      image: require('../images/a3.png'),
     },
     {
       id: 6,
       text: 'This photo is of Iceland.\nBy @r3dmax',
-      image: require('../images/a6.jpg'),
+      image: require('../images/a1.png'),
     },
     {
       id: 7,
       text: 'This photo is of Iceland.\nBy @r3dmax',
-      image: require('../images/a7.png'),
+      image: require('../images/a2.png'),
     },
     {
       id: 8,
