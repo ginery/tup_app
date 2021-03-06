@@ -144,7 +144,7 @@ function RowItem({
   item_status,
   borrow_item,
 }) {
-  // console.log(b_item);
+  console.log(borrow_item);
   // useEffect(() => {
   //   if (status == 0) {
   //     setBtnOnload(true);
