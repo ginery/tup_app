@@ -1,3 +1,0 @@
-if (self.CavalryLogger) { CavalryLogger.start_js(["GXNm8"]); }
-
-__d("CometEntryPointDialogTrigger.react",["react","useCometEntryPointDialog"],(function(a,b,c,d,e,f){"use strict";e.exports=a;var g,h=g||b("react");function a(a){var c=a.children,d=a.dialogEntryPoint,e=a.fallback,f=a.onHide,g=a.preloadParams,i=a.preloadTrigger,j=a.otherProps,k=a.onShow,l=k===void 0?function(){}:k,m=a.tracePolicy;k=b("useCometEntryPointDialog")(d,g,i,e);var n=k[0];k[1];a=k[2];d=k[3];g=k[4];i=h.useCallback(function(){n(j,f,m),l()},[n,j,f,m,l]);return c(i,a,d,g)}}),null);
