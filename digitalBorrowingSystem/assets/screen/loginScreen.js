@@ -112,8 +112,8 @@ export default function loginScreen({navigation}) {
   }
   return (
     <>
+      <StatusBar backgroundColor="#800000" />
       <PaperProvider>
-        <StatusBar backgroundColor="#800000" />
         <View style={styles.wrapper}>
           <View style={styles.textInputWrapper}>
             <Image

@@ -28,11 +28,6 @@ const MainStackNavigator = () => {
         options={{headerShown: false}}
       /> */}
       <Stack.Screen
-        name="Home Screen"
-        component={Home}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
         name="Login"
         component={Login}
         options={{headerShown: false}}
@@ -42,7 +37,11 @@ const MainStackNavigator = () => {
         component={Signup}
         options={{headerShown: false}}
       />
-
+      <Stack.Screen
+        name="Home Screen"
+        component={Home}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="Request Form"
         component={RequestForm}
