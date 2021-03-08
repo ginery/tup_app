@@ -62,7 +62,7 @@ export default function About({navigation}) {
     {
       id: 8,
       text: 'This photo is of Iceland.\nBy @r3dmax',
-      image: require('../images/a8.png'),
+      image: require('../images/a8.jpg'),
     },
   ];
 

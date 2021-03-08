@@ -70,6 +70,7 @@ export default function Components({navigation, route}) {
             item_id: item.item_id,
             item_qty: item.item_qty,
             item_status: item.item_status,
+            quantity_item: item.quantity_item,
           };
         });
         console.log(data);
@@ -120,6 +121,7 @@ export default function Components({navigation, route}) {
                   b_item={item.b_item}
                   item_qty={item.item_qty}
                   item_status={item.item_status}
+                  quantity_item={item.quantity_item}
                 />
               )}
               keyExtractor={(item) => item.item_id.toString()}
@@ -142,6 +144,7 @@ function RowItem({
   item_id,
   item_qty,
   item_status,
+  quantity_item,
 }) {
   // console.log(item_qty);
   var quantiy = item_qty.toString();
@@ -221,34 +224,42 @@ function RowItem({
                 {item_code}
               </Text>
             </Body>
-            <Right>
-              <Button
-                onPress={() => btnAdd(item_id)}
-                style={{backgroundColor: '#800000', borderRadius: 0}}
-                labelStyle={{color: 'white', fontSize: 12}}>
-                <Text>+</Text>
-              </Button>
-              <TextInput
-                onChangeText={(text) => setQuantity(text)}
-                value={item_quantity}
-                disabled={true}
-                style={{
-                  fontSize: 20,
-                  textAlign: 'center',
-                  // borderBottomWidth: 1,
-                  // borderColor: 'black',
-                  width: 62,
-                  fontWeight: 'bold',
-                  height: 30,
-                }}
-              />
-              <Button
-                onPress={() => btnMinus(item_id)}
-                style={{backgroundColor: 'grey', borderRadius: 0}}
-                labelStyle={{color: 'white', fontSize: 12}}>
-                <Text>-</Text>
-              </Button>
-            </Right>
+            {quantity_item > 30 && (
+              <Right>
+                <Button
+                  // disabled={quantity_item == 30 ? true : false}
+                  onPress={() => btnAdd(item_id)}
+                  style={{backgroundColor: '#800000', borderRadius: 0}}
+                  labelStyle={{color: 'white', fontSize: 12}}>
+                  <Text>+</Text>
+                </Button>
+                <TextInput
+                  onChangeText={(text) => setQuantity(text)}
+                  value={item_quantity}
+                  disabled={true}
+                  style={{
+                    fontSize: 20,
+                    textAlign: 'center',
+                    // borderBottomWidth: 1,
+                    // borderColor: 'black',
+                    width: 62,
+                    fontWeight: 'bold',
+                    height: 30,
+                  }}
+                />
+                <Button
+                  onPress={() => btnMinus(item_id)}
+                  style={{backgroundColor: 'grey', borderRadius: 0}}
+                  labelStyle={{color: 'white', fontSize: 12}}>
+                  <Text>-</Text>
+                </Button>
+              </Right>
+            )}
+            {quantity_item == 30 && (
+              <Right>
+                <Text style={{color: 'red', fontWeight: 'bold'}}>N/A</Text>
+              </Right>
+            )}
           </ListItem>
         )}
       </List>
