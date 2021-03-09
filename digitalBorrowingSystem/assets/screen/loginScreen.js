@@ -26,6 +26,17 @@ export default function loginScreen({navigation}) {
       return () => retrieveData();
     }),
   );
+  var today = new Date();
+  var time =
+    makeTwoDigits(today.getHours()) + ':' + makeTwoDigits(today.getMinutes());
+
+  /// make date and time 2 digit
+  function makeTwoDigits(time) {
+    const timeString = `${time}`;
+    if (timeString.length === 2) return time;
+    return `0${time}`;
+  }
+  var timeString = time.toString();
   const retrieveData = async () => {
     try {
       const valueString = await AsyncStorage.getItem('user_details');
@@ -33,7 +44,35 @@ export default function loginScreen({navigation}) {
       if (valueString == null || valueString == '') {
         console.log('empty');
       } else {
-        console.log('with value');
+        //console.log('with value');
+        console.log(timeString);
+        if (timeString == '17:01') {
+          const formData = new FormData();
+          formData.append('user_id', value.user_id);
+          fetch(global.global_url + 'checkReturnUser.php', {
+            method: 'POST',
+            header: {
+              Accept: 'application/json',
+              'Content-Type': 'multipart/form-data',
+            },
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((ResponseJson) => {
+              var data = ResponseJson.array_data[0];
+              console.log(data.res);
+              if (data.res == 1) {
+                Alert.alert(
+                  'Account revoked! Return the items first to retrieve your account.',
+                );
+                navigation.navigate('Login');
+              }
+            })
+            .catch((error) => {
+              console.error(error);
+              Alert.alert('Internet Connection Error');
+            });
+        }
         navigation.navigate('Home Screen', {
           user_id: value.user_id,
           user_name: value.user_name,

@@ -61,11 +61,11 @@ export default function homeScreen({navigation, route}) {
         var data = ResponseJson.array_data[0];
         console.log(data.res);
         if (data.res == 1) {
-          Alert.alert(
-            'The items you borrow should return first to revoke your account.',
-          );
-          AsyncStorage.clear();
-          navigation.navigate('Login');
+          // Alert.alert(
+          //   'The items you borrow should return first to revoke your account.',
+          // );
+          // AsyncStorage.clear();
+          // navigation.navigate('Login');
           schedNotif();
         }
       })
