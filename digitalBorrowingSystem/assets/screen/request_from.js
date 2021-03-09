@@ -76,7 +76,7 @@ export default function requestForm({navigation, route}) {
   console.log(showRemove);
   useEffect(() => {
     getBorrow();
-  }, [1]);
+  });
 
   function getBorrow() {
     const formData = new FormData();
