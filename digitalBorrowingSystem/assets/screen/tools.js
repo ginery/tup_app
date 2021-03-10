@@ -44,7 +44,7 @@ export default function Tools({navigation, route}) {
   useEffect(() => {
     //retrieveData();
     get_tools();
-  });
+  }, [1]);
 
   function get_tools() {
     const formData = new FormData();
@@ -120,6 +120,7 @@ export default function Tools({navigation, route}) {
                   b_item={item.b_item}
                   borrow_item={item.borrow_item}
                   item_status={item.item_status}
+                  get_tools={get_tools}
                 />
               )}
               keyExtractor={(item) => item.item_id.toString()}
@@ -143,6 +144,7 @@ function RowItem({
   item_id,
   item_status,
   borrow_item,
+  get_tools,
 }) {
   console.log(borrow_item);
   // useEffect(() => {
@@ -178,6 +180,7 @@ function RowItem({
         var data = responseJson.array_data[0];
         if (data.res == 1) {
           setBtnShow(1);
+          get_tools();
         }
       })
       .catch((error) => {
@@ -205,6 +208,7 @@ function RowItem({
         var data = responseJson.array_data[0];
         if (data.res == 1) {
           setBtnShow(0);
+          get_tools();
         }
       })
       .catch((error) => {

@@ -45,7 +45,7 @@ export default function Components({navigation, route}) {
   useEffect(() => {
     //retrieveData();
     get_components();
-  });
+  }, [1]);
 
   function get_components() {
     const formData = new FormData();
