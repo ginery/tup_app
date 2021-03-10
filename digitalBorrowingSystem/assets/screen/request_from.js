@@ -76,7 +76,7 @@ export default function requestForm({navigation, route}) {
   console.log(showRemove);
   useEffect(() => {
     getBorrow();
-  });
+  }, [1]);
 
   function getBorrow() {
     const formData = new FormData();
@@ -164,7 +164,7 @@ export default function requestForm({navigation, route}) {
   }
   function removeBtn() {
     console.log('press!');
-    getBorrow();
+
     setShowRemove(true);
   }
   function timeBtn() {
@@ -279,6 +279,7 @@ export default function requestForm({navigation, route}) {
                     bd_id={item.bd_id}
                     b_id={item.b_id}
                     showRemove={showRemove}
+                    getBorrow={getBorrow}
                   />
                 )}
                 keyExtractor={(item) => item.bd_id.toString()}
@@ -398,6 +399,7 @@ function RowItem({
   b_id,
   item_qty,
   showRemove,
+  getBorrow,
 }) {
   function removeItem(item_id, b_id) {
     const formData = new FormData();
@@ -417,6 +419,7 @@ function RowItem({
         var data = responseJson.array_data[0];
         if (data.res == 1) {
           Alert.alert('Remove successfull!');
+          getBorrow();
         } else {
           Alert.alert('Something went wrong');
         }

@@ -46,7 +46,7 @@ export default function loginScreen({navigation}) {
       } else {
         //console.log('with value');
         console.log(timeString);
-        if (timeString == '17:01') {
+        if (timeString >= '17:01') {
           const formData = new FormData();
           formData.append('user_id', value.user_id);
           fetch(global.global_url + 'checkReturnUser.php', {
