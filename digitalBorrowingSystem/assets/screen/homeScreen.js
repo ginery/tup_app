@@ -24,17 +24,28 @@ const width_proportion = '90%';
 const btn_wrapper = '45%';
 const img_width = '100%';
 export default function homeScreen({navigation, route}) {
-  // useEffect(() => {
+  useEffect(() => {
+    retrieveData();
+    schedNotif();
+  }, [1]);
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     retrieveData();
+  //     schedNotif();
+  //     return () => retrieveData();
+  //   }),
+  // );
+  var today = new Date();
+  var time =
+    makeTwoDigits(today.getHours()) + ':' + makeTwoDigits(today.getMinutes());
 
-  // });
-  useFocusEffect(
-    React.useCallback(() => {
-      retrieveData();
-      checkReturn();
-      return () => retrieveData();
-    }),
-  );
-
+  /// make date and time 2 digit
+  function makeTwoDigits(time) {
+    const timeString = `${time}`;
+    if (timeString.length === 2) return time;
+    return `0${time}`;
+  }
+  var timeString = time.toString();
   //form sign in and log in
   const {
     user_id,
@@ -44,36 +55,35 @@ export default function homeScreen({navigation, route}) {
     user_course_sec,
     user_id_number,
   } = route.params;
-  function checkReturn() {
-    //Alert.alert('test');
-    const formData = new FormData();
-    formData.append('user_id', user_id);
-    fetch(global.global_url + 'checkReturn.php', {
-      method: 'POST',
-      header: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-      },
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((ResponseJson) => {
-        var data = ResponseJson.array_data[0];
-        console.log(data.res);
-        if (data.res == 1) {
-          // Alert.alert(
-          //   'The items you borrow should return first to revoke your account.',
-          // );
-          // AsyncStorage.clear();
-          // navigation.navigate('Login');
-          schedNotif();
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        Alert.alert('Internet Connection Error');
-      });
-  }
+  // function checkReturn() {
+  //   //Alert.alert('test');
+  //   const formData = new FormData();
+  //   formData.append('user_id', user_id);
+  //   fetch(global.global_url + 'checkReturn.php', {
+  //     method: 'POST',
+  //     header: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'multipart/form-data',
+  //     },
+  //     body: formData,
+  //   })
+  //     .then((response) => response.json())
+  //     .then((ResponseJson) => {
+  //       var data = ResponseJson.array_data[0];
+  //       if (data.res == 1) {
+  //         // Alert.alert(
+  //         //   'The items you borrow should return first to revoke your account.',
+  //         // );
+  //         // AsyncStorage.clear();
+  //         // navigation.navigate('Login');
+
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //       Alert.alert('Internet Connection Error');
+  //     });
+  // }
   function schedNotif() {
     const formData = new FormData();
     formData.append('user_id', user_id);
@@ -92,8 +102,8 @@ export default function homeScreen({navigation, route}) {
         if (data.res == 1) {
           var now = new Date();
           now.setDate(now.getDate());
-          now.setHours(13);
-          now.setMinutes(45);
+          now.setHours(16);
+          now.setMinutes(30);
           now.setMilliseconds(0);
           // console.log(now + '-----' + new Date(Date.now() + 3 * 1000));
           PushNotification.localNotificationSchedule({
@@ -103,6 +113,10 @@ export default function homeScreen({navigation, route}) {
             date: now, // in 60 secs
             allowWhileIdle: false, // (optional) set notification to work while on doze, default: false
           });
+        } else if (data.res == 2) {
+          Alert.alert(
+            'Account revoked! please return the items to retrieve your account.',
+          );
         }
       })
       .catch((error) => {

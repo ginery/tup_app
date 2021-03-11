@@ -119,7 +119,7 @@ export default function loginScreen({navigation}) {
           var data = responseJson.array_data[0];
           console.log(data.res);
           if (data.res == 1) {
-            Alert.alert('Successfull Signed up.');
+            // Alert.alert('Successfull Signed up.');
             setItemStorage('user_details', {
               user_id: data.id,
               user_name: data.name,

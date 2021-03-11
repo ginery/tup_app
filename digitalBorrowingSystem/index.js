@@ -60,7 +60,6 @@ PushNotification.configure({
   onAction: function (notification) {
     console.log('ACTION:', notification.action);
     console.log('NOTIFICATION:', notification);
-
     // Alert.alert('test');
     // process the action
   },
