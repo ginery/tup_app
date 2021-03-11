@@ -213,55 +213,53 @@ function RowItem({
   return (
     <Content>
       <List>
-        {item_status == 1 && (
-          <ListItem thumbnail>
-            <Left>
-              <Thumbnail square source={{uri: global.images + item_image}} />
-            </Left>
-            <Body>
-              <Text style={{fontWeight: 'bold'}}>{item_name}</Text>
-              <Text note numberOfLines={3}>
-                {item_code}
-              </Text>
-            </Body>
-            {quantity_item > 30 && (
-              <Right>
-                <Button
-                  // disabled={quantity_item == 30 ? true : false}
-                  onPress={() => btnAdd(item_id)}
-                  style={{backgroundColor: '#800000', borderRadius: 0}}
-                  labelStyle={{color: 'white', fontSize: 12}}>
-                  <Text>+</Text>
-                </Button>
-                <TextInput
-                  onChangeText={(text) => setQuantity(text)}
-                  value={item_quantity}
-                  disabled={true}
-                  style={{
-                    fontSize: 20,
-                    textAlign: 'center',
-                    // borderBottomWidth: 1,
-                    // borderColor: 'black',
-                    width: 62,
-                    fontWeight: 'bold',
-                    height: 30,
-                  }}
-                />
-                <Button
-                  onPress={() => btnMinus(item_id)}
-                  style={{backgroundColor: 'grey', borderRadius: 0}}
-                  labelStyle={{color: 'white', fontSize: 12}}>
-                  <Text>-</Text>
-                </Button>
-              </Right>
-            )}
-            {quantity_item == 30 && (
-              <Right>
-                <Text style={{color: 'red', fontWeight: 'bold'}}>N/A</Text>
-              </Right>
-            )}
-          </ListItem>
-        )}
+        <ListItem thumbnail>
+          <Left>
+            <Thumbnail square source={{uri: global.images + item_image}} />
+          </Left>
+          <Body>
+            <Text style={{fontWeight: 'bold'}}>{item_name}</Text>
+            <Text note numberOfLines={3}>
+              {item_code}
+            </Text>
+          </Body>
+          {quantity_item > 30 && (
+            <Right>
+              <Button
+                // disabled={quantity_item == 30 ? true : false}
+                onPress={() => btnAdd(item_id)}
+                style={{backgroundColor: '#800000', borderRadius: 0}}
+                labelStyle={{color: 'white', fontSize: 12}}>
+                <Text>+</Text>
+              </Button>
+              <TextInput
+                onChangeText={(text) => setQuantity(text)}
+                value={item_quantity}
+                disabled={true}
+                style={{
+                  fontSize: 20,
+                  textAlign: 'center',
+                  // borderBottomWidth: 1,
+                  // borderColor: 'black',
+                  width: 62,
+                  fontWeight: 'bold',
+                  height: 30,
+                }}
+              />
+              <Button
+                onPress={() => btnMinus(item_id)}
+                style={{backgroundColor: 'grey', borderRadius: 0}}
+                labelStyle={{color: 'white', fontSize: 12}}>
+                <Text>-</Text>
+              </Button>
+            </Right>
+          )}
+          {quantity_item == 30 && (
+            <Right>
+              <Text style={{color: 'red', fontWeight: 'bold'}}>N/A</Text>
+            </Right>
+          )}
+        </ListItem>
       </List>
     </Content>
   );
