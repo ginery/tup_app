@@ -42,14 +42,18 @@ PushNotification.configure({
   // (required) Called when a remote is received or opened, or local notification is opened
   onNotification: function (notification) {
     console.log('NOTIFICATION:', notification);
-    if (!notification.message) {
+
+    console.log('message:' + notification.userInteraction);
+    var msg = notification.userInteraction;
+    if (msg == false) {
       Alert.alert(notification.message);
     }
+    //Alert.alert(notification.message);
 
     // process the notification
 
     // (required) Called when a remote is received or opened, or local notification is opened
-    notification.finish(PushNotificationIOS.FetchResult.NoData);
+    //notification.finish(PushNotificationIOS.FetchResult.NoData);
   },
 
   // (optional) Called when Registered Action is pressed and invokeApp is false, if true onNotification will be called (Android)

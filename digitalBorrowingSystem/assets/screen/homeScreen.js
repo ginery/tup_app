@@ -92,8 +92,8 @@ export default function homeScreen({navigation, route}) {
         if (data.res == 1) {
           var now = new Date();
           now.setDate(now.getDate());
-          now.setHours(16);
-          now.setMinutes(30);
+          now.setHours(13);
+          now.setMinutes(45);
           now.setMilliseconds(0);
           // console.log(now + '-----' + new Date(Date.now() + 3 * 1000));
           PushNotification.localNotificationSchedule({
