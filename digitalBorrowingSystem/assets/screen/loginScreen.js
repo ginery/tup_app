@@ -62,6 +62,7 @@ export default function loginScreen({navigation}) {
               var data = ResponseJson.array_data[0];
               console.log(data.res);
               if (data.res == 1) {
+                AsyncStorage.clear();
                 Alert.alert(
                   'Account revoked! Return the items first to retrieve your account.',
                 );
