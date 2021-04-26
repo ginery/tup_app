@@ -218,50 +218,50 @@ function RowItem({
   return (
     <Content>
       <List>
-        <ListItem thumbnail>
-          <Left>
-            <Thumbnail square source={{uri: global.images + item_image}} />
-          </Left>
-          <Body>
-            <Text style={{fontWeight: 'bold'}} numberOfLines={1}>
-              {item_name}
-            </Text>
-            <Text note numberOfLines={3}>
-              {item_code}
-            </Text>
-          </Body>
-          <Right>
-            {item_id == b_item && (
-              <Button
-                // disabled={true}
-                onPress={() => btnCancel({item_id}, 0)}
-                style={{
-                  //backgroundColor: setBtnDisable(),
-                  backgroundColor: 'grey',
-                  borderRadius: 15,
-                }}
-                labelStyle={{color: 'white', fontSize: 12}}>
-                <Text>Cancel</Text>
-              </Button>
-            )}
-            {item_id != b_item && (
-              // btnShow == 1
-              <Button
-                disabled={borrow_item == 0 && item_status == 1 ? false : true}
-                onPress={() => btnAdd({item_id}, 1)}
-                style={{
-                  //backgroundColor: setBtnDisable(),
-                  backgroundColor:
-                    borrow_item == 0 && item_status == 1 ? '#800000' : 'grey',
-                  borderRadius: 15,
-                }}
-                labelStyle={{color: 'white', fontSize: 12}}>
-                {borrow_item == 0 && item_status == 1 && <Text>add</Text>}
-                {(borrow_item == 1 || item_status == 0) && <Text>N/A</Text>}
-              </Button>
-            )}
-          </Right>
-        </ListItem>
+        {item_status == 1 && (
+          <ListItem thumbnail>
+            <Left>
+              <Thumbnail square source={{uri: global.images + item_image}} />
+            </Left>
+            <Body>
+              <Text style={{fontWeight: 'bold'}} numberOfLines={1}>
+                {item_name}
+              </Text>
+              <Text note numberOfLines={3}>
+                {item_code}
+              </Text>
+            </Body>
+            <Right>
+              {item_id == b_item && (
+                <Button
+                  // disabled={true}
+                  onPress={() => btnCancel({item_id}, 0)}
+                  style={{
+                    //backgroundColor: setBtnDisable(),
+                    backgroundColor: 'grey',
+                    borderRadius: 15,
+                  }}
+                  labelStyle={{color: 'white', fontSize: 12}}>
+                  <Text>Cancel</Text>
+                </Button>
+              )}
+              {item_id != b_item && (
+                <Button
+                  disabled={borrow_item == 0 ? false : true}
+                  onPress={() => btnAdd({item_id}, 1)}
+                  style={{
+                    //backgroundColor: setBtnDisable(),
+                    backgroundColor: borrow_item == 0 ? '#800000' : 'grey',
+                    borderRadius: 15,
+                  }}
+                  labelStyle={{color: 'white', fontSize: 12}}>
+                  {borrow_item == 0 && <Text>add</Text>}
+                  {borrow_item == 1 && <Text>N/A</Text>}
+                </Button>
+              )}
+            </Right>
+          </ListItem>
+        )}
       </List>
     </Content>
   );
